@@ -1,4 +1,4 @@
-package Traitment;
+package dao;
 
 import java.util.Date;
 

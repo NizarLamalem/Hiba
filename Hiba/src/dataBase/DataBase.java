@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.LinkedList;
 
-import Traitment.Article;
-import Traitment.Facture;
+import dao.Article;
+import dao.Facture;
 
 public class DataBase {
 	// The DataVase Connection

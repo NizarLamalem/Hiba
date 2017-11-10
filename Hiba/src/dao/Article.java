@@ -1,4 +1,4 @@
-package Traitment;
+package dao;
 
 public class Article {
 

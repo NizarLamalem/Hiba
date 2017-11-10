@@ -2,7 +2,7 @@ package dataBase;
 
 import java.util.LinkedList;
 
-import Traitment.Article;
+import dao.Article;
 
 public class Main {
 
