@@ -4,19 +4,18 @@
 	-fx-text-fill: Black ;
 	-fx-font-family: 'Helvetica Neue';
   	-fx-border-color: grey;
-  	-fx-border-width: 0.1 0.0 0.1 0 ;
-  	-fx-effect: innershadow(gaussian, black, 15, 0, 0, 0);
+  	-fx-border-width: 0.1 0.0 0.1 0.0 ;
+  	-fx-effect: innershadow(gaussian, black, 15.0, 0.0, 0.0, 0.0);
 }
 
 .DrawerButtons:hover{
 -fx-effect:dropshadow(gaussian,black, 8.0, 0.0, 0.0, 0.0);
--fx-background-color: gray ;
+-fx-background-color: #64B5F6 ;
+-fx-text-fill: white ;
 }
 
 .DrawerButtons:pressed{
-	-fx-text-fill: Black ;
-	-fx-font-family: 'Helvetica Neue';
-  	-fx-border-color: grey;
-  	-fx-border-width: 0.1 0.0 0.1 0 ;
-  	-fx-effect: innershadow(gaussian, black, 15, 0, 0, 0);
+	-fx-effect:dropshadow(gaussian,black, 8.0, 0.0, 0.0, 0.0);
+	-fx-background-color: #1E88E5 ;
+	-fx-text-fill: white ;
 }
