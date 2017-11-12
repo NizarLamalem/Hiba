@@ -104,4 +104,7 @@ public class DataBase {
 		stmt.close();
 	}
 
+	public Connection getConnection() {
+		return this.con;
+	}
 }
