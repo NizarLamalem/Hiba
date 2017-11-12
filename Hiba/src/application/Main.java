@@ -1,14 +1,17 @@
 package application;
 	
+import dataBase.DataBase;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-public class Main extends Application {
+public class Main extends Application{
+	static public DataBase database;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			 database=new DataBase()  ;
 			BorderPane root = new BorderPane();
 			Scene scene = new Scene(root,400,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
