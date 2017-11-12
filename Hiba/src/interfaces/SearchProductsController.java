@@ -2,25 +2,16 @@ package interfaces;
 
 import java.awt.TextField;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
-import com.sun.glass.ui.Window.Level;
-
+import application.Main;
+import dao.Article;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import dataBase.*;
-import dao.*;
-import application.*;
-import application.Main;
 
 
 public class SearchProductsController {

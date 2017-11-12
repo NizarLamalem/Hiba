@@ -1,15 +1,16 @@
 package application;
 
-import dataBase.*;	
+import dataBase.DataBase;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class Main extends Application {
+	//DataBase Instance For All Program Use 
 	static public DataBase database;
+
 	@Override
 	public void start(Stage primaryStage) {
 		try{
@@ -21,7 +22,8 @@ public class Main extends Application {
 			primaryStage.setTitle("Hiba Agricole");
 			primaryStage.setResizable(false);
 			primaryStage.show();
-			database = new DataBase();
+			//database = new DataBase();
+;
 		}catch(Exception e){
 			e.printStackTrace();
 		}

@@ -31,13 +31,11 @@ public class MainPageController implements Initializable {
 
 	@FXML
 	private Label title;
-
+	@FXML
 	public static AnchorPane rootP;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		rootP = root;
-
 		try {
 			VBox box = FXMLLoader.load(getClass().getResource("Drawer.fxml"));
 			drawer.setSidePane(box);

@@ -7,17 +7,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainPageController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainPageController">
    <children>
       <JFXHamburger fx:id="hamburger" layoutX="700.0" layoutY="14.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></JFXHamburger>
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="252.0" layoutX="-1.0" prefHeight="614.0" prefWidth="252.0" />
       <Label id="title" fx:id="title" alignment="CENTER" contentDisplay="CENTER" layoutX="274.0" layoutY="24.0" prefHeight="47.0" prefWidth="197.0" stylesheets="@application.css" text="Hiba Agricole">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
+      <AnchorPane fx:id="rootP" layoutY="71.0" prefHeight="543.0" prefWidth="744.0" />
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="252.0" layoutX="-1.0" prefHeight="614.0" prefWidth="252.0" />
    </children>
 </AnchorPane>
