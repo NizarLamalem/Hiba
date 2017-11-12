@@ -1,6 +1,6 @@
 package interfaces;
 
-import java.awt.TextField;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 

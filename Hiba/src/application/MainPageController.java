@@ -32,11 +32,16 @@ public class MainPageController implements Initializable {
 	@FXML
 	private Label title;
 	@FXML
-	public static AnchorPane rootP;
+	private AnchorPane rootP;
+
+	public static AnchorPane RootP;
+	public static JFXDrawer Drawer ;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		try {
+			RootP = rootP;
+			Drawer=drawer ;
 			VBox box = FXMLLoader.load(getClass().getResource("Drawer.fxml"));
 			drawer.setSidePane(box);
 		} catch (IOException ex) {
