@@ -13,7 +13,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try{
-			database = new DataBase();
+			
 			Parent root=FXMLLoader.load(getClass().getResource("/application/FirstPage.fxml"));
 			Scene Sc=new Scene(root) ;
 			Sc.getStylesheets().add(getClass().getResource("application.css").toExternalForm()) ;
@@ -21,6 +21,7 @@ public class Main extends Application {
 			primaryStage.setTitle("Hiba Agricole");
 			primaryStage.setResizable(false);
 			primaryStage.show();
+			database = new DataBase();
 		}catch(Exception e){
 			e.printStackTrace();
 		}

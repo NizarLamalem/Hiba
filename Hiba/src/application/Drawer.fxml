@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="252.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="252.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DrawerController">
    <children>
       <ImageView fitHeight="150.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Resources/back.jpg" />
          </image></ImageView>
-      <JFXButton buttonType="RAISED" prefHeight="50.0" prefWidth="257.0" ripplerFill="#1e88e5" styleClass="DrawerButtons" stylesheets="@application.css" text="Nouvelle Facture" textOverrun="CLIP" />
-      <JFXButton buttonType="RAISED" prefHeight="50.0" prefWidth="252.0" ripplerFill="#1e88e5" styleClass="DrawerButtons" stylesheets="@application.css" text="Afficher Factures" textOverrun="CLIP" />
-      <JFXButton buttonType="RAISED" prefHeight="50.0" prefWidth="252.0" ripplerFill="#1e88e5" styleClass="DrawerButtons" stylesheets="@application.css" text="Afficher Arcticles" textOverrun="CLIP" />
-      <JFXButton buttonType="RAISED" prefHeight="50.0" prefWidth="252.0" ripplerFill="#1e88e5" styleClass="DrawerButtons" stylesheets="@application.css" text="Exit" textOverrun="CLIP" />
+      <JFXButton fx:id="nouvelleFacture" buttonType="RAISED" onAction="#onClick" prefHeight="50.0" prefWidth="257.0" ripplerFill="#1e88e5" styleClass="DrawerButtons" stylesheets="@application.css" text="Nouvelle Facture" textOverrun="CLIP">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton fx:id="afficherFactures" buttonType="RAISED" onAction="#onClick" prefHeight="50.0" prefWidth="252.0" ripplerFill="#1e88e5" styleClass="DrawerButtons" stylesheets="@application.css" text="Afficher Factures" textOverrun="CLIP">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton fx:id="afficherArticles" buttonType="RAISED" onAction="#onClick" prefHeight="50.0" prefWidth="252.0" ripplerFill="#1e88e5" styleClass="DrawerButtons" stylesheets="@application.css" text="Afficher Articles" textOverrun="CLIP">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton fx:id="Exite" buttonType="RAISED" onAction="#onClick" onMouseClicked="#onClick" prefHeight="50.0" prefWidth="252.0" ripplerFill="#1e88e5" styleClass="DrawerButtons" stylesheets="@application.css" text="Exit" textOverrun="CLIP">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
    </children>
 </VBox>

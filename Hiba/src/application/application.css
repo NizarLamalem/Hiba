@@ -20,7 +20,7 @@
 	-fx-text-fill: white ;
 }
 #title{
-	 -fx-color: #c9d0d4;
+	 		-fx-color: #c9d0d4;
 		 -fx-font-family: 'Helvetica Neue';
 		 -fx-font-size: 30px; 
 		 -fx-font-weight: bold;

@@ -14,7 +14,7 @@
             <Cursor fx:constant="HAND" />
          </cursor></JFXHamburger>
       <JFXDrawer fx:id="drawer" defaultDrawerSize="252.0" layoutX="-1.0" prefHeight="614.0" prefWidth="252.0" />
-      <Label id="title" alignment="CENTER" contentDisplay="CENTER" layoutX="274.0" layoutY="24.0" prefHeight="47.0" prefWidth="197.0" stylesheets="@application.css" text="Hiba Agricole">
+      <Label id="title" fx:id="title" alignment="CENTER" contentDisplay="CENTER" layoutX="274.0" layoutY="24.0" prefHeight="47.0" prefWidth="197.0" stylesheets="@application.css" text="Hiba Agricole">
          <font>
             <Font size="32.0" />
          </font>

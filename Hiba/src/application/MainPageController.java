@@ -13,6 +13,7 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -27,6 +28,9 @@ public class MainPageController implements Initializable {
 
 	@FXML
 	private AnchorPane root;
+
+	@FXML
+	private Label title;
 
 	public static AnchorPane rootP;
 
