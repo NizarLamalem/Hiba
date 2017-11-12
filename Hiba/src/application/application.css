@@ -19,3 +19,10 @@
 	-fx-background-color: #1E88E5 ;
 	-fx-text-fill: white ;
 }
+#title{
+	 -fx-color: #c9d0d4;
+		 -fx-font-family: 'Helvetica Neue';
+		 -fx-font-size: 30px; 
+		 -fx-font-weight: bold;
+		 -fx-alignment: center-left ;
+}

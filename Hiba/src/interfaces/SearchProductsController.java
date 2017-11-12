@@ -10,7 +10,6 @@ import java.util.Observable;
 import java.util.ResourceBundle;
 
 import com.sun.glass.ui.Window.Level;
-import com.sun.istack.internal.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +21,7 @@ import dataBase.*;
 import dao.*;
 import application.*;
 import application.Main;
+
 
 public class SearchProductsController {
 
