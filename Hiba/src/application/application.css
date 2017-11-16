@@ -26,3 +26,12 @@
 		 -fx-font-weight: bold;
 		 -fx-alignment: center-left ;
 }
+.hint{
+	-fx-opacity: 0;
+	-fx-text-fill: white ;
+	-fx-background-color: #CA2E2F ;
+	-fx-background-radius: 15 3 3 0;
+	-fx-border-radius: 15 3 3 0;
+	-fx-border-color: red ;
+	-fx-effect:dropshadow(gaussian, red, 8, 0, 0, 0);
+}

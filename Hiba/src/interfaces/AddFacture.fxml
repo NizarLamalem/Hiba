@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="510.0" maxWidth="674.0" minHeight="510.0" minWidth="674.0" prefHeight="510.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfaces.AddFactureController">
    <children>
-      <Spinner fx:id="qst" layoutX="337.0" layoutY="14.0" prefHeight="25.0" prefWidth="88.0" />
+      <Spinner fx:id="qst" layoutX="357.0" layoutY="14.0" prefHeight="25.0" prefWidth="88.0" />
       <TextField fx:id="Article" layoutX="87.0" layoutY="14.0" promptText="Article Ev" />
       <TableView fx:id="stockTable" layoutX="87.0" layoutY="74.0" prefHeight="160.0" prefWidth="500.0">
         <columns>
@@ -19,14 +19,14 @@
       </TableView>
       <TableView fx:id="factureTable" layoutX="87.0" layoutY="284.0" prefHeight="160.0" prefWidth="500.0">
          <columns>
-            <TableColumn fx:id="factureArticle" prefWidth="221.0" text="Article" />
-            <TableColumn fx:id="factureQuantity" prefWidth="199.0" text="Qte" />
-            <TableColumn fx:id="factureAction" prefWidth="79.0" text="Action" />
+            <TableColumn fx:id="factureArticle" prefWidth="250.0" text="Article" />
+            <TableColumn fx:id="factureQuantity" prefWidth="248.0" text="Qte" />
          </columns>
       </TableView>
-      <JFXButton fx:id="addArticle" buttonType="RAISED" layoutX="499.0" layoutY="246.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" text="Ajouté Article" textFill="WHITE" />
-      <JFXButton fx:id="cancel" buttonType="RAISED" layoutX="609.0" layoutY="463.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" text="Cancel" textFill="WHITE" />
-      <JFXButton fx:id="seeFacture" buttonType="RAISED" layoutX="499.0" layoutY="463.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" text="Visioner Facture" textFill="WHITE" />
-      <JFXButton fx:id="createFacture" buttonType="RAISED" layoutX="400.0" layoutY="463.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" text="Creé Facture" textFill="WHITE" />
+      <JFXButton fx:id="addArticle" buttonType="RAISED" layoutX="479.0" layoutY="246.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" text="Detailles L'article" textFill="WHITE" />
+      <JFXButton fx:id="addArticle1" buttonType="RAISED" layoutX="378.0" layoutY="246.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" text="Ajouté Article" textFill="WHITE" />
+      <JFXButton fx:id="cancel" buttonType="RAISED" layoutX="599.0" layoutY="463.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" text="Cancel" textFill="WHITE" />
+      <JFXButton fx:id="seeFacture" buttonType="RAISED" layoutX="489.0" layoutY="463.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" text="Visioner Facture" textFill="WHITE" />
+      <JFXButton fx:id="createFacture" buttonType="RAISED" layoutX="390.0" layoutY="463.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" text="Creé Facture" textFill="WHITE" />
    </children>
 </AnchorPane>

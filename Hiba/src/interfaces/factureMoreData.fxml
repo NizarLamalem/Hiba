@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="167.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfaces.FactureMoreDataController">
+   <children>
+    <Label fx:id="notificationAddresse" alignment="CENTER" layoutX="453.0" layoutY="55.0" prefHeight="19.0" prefWidth="129.0" styleClass="hint" stylesheets="@application.css" text="Empty Field" />
+      <Label fx:id="notificationCin" alignment="CENTER" layoutX="69.0" layoutY="55.0" prefWidth="70.0" styleClass="hint" stylesheets="@application.css" text="Empty Field" />
+      <TextField fx:id="address" layoutX="194.0" layoutY="75.0" prefHeight="25.0" prefWidth="389.0" promptText="Addresse" />
+      <TextField fx:id="cin" layoutX="21.0" layoutY="75.0" prefHeight="25.0" prefWidth="118.0" promptText="CIN" />
+      <JFXButton fx:id="Ajoute" buttonType="RAISED" layoutX="524.0" layoutY="128.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" text="Ajoute" textFill="WHITE" />
+      <Label layoutX="21.0" layoutY="19.0" text="SVP remplire ces Donnes :">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
