@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
@@ -10,7 +11,10 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="364.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfaces.AddFactureDetailsController">
    <children>
-      <JFXButton fx:id="exit" buttonType="RAISED" layoutX="322.0" layoutY="298.0" onMouseClicked="#onClick" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #607D8B;" text="Quitter" textFill="WHITE" />
+      <JFXButton fx:id="exit" buttonType="RAISED" layoutX="322.0" layoutY="308.0" onMouseClicked="#onClick" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #607D8B;" styleClass="FlatButton" text="Quitter" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
       <VBox layoutX="40.0" layoutY="50.0" prefHeight="195.0" prefWidth="80.0">
          <children>
             <Label prefHeight="17.0" prefWidth="120.0" styleClass="labels" stylesheets="@application.css" text="EV  :">

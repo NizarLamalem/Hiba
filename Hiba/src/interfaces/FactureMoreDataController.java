@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class FactureMoreDataController implements Initializable {
 
@@ -35,7 +36,7 @@ public class FactureMoreDataController implements Initializable {
 	@FXML
 	void onClick(MouseEvent event) {
 		hideNotification();
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i <2; i++) {
 			if (Fields[i].getText().equals("")) {
 				Notifications[i].setOpacity(1);
 				if (wrong == false)
@@ -46,7 +47,7 @@ public class FactureMoreDataController implements Initializable {
 		// Insert Give The Data To The Main Interface ;
 		if (!wrong) {
 			//TODO Do Treatment
-			System.exit(-1);
+			((Stage) Ajoute.getScene().getWindow()).close();
 		}
 	}
 

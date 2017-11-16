@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -23,10 +24,25 @@
             <TableColumn fx:id="factureQuantity" prefWidth="248.0" text="Qte" />
          </columns>
       </TableView>
-      <JFXButton fx:id="addArticle" buttonType="RAISED" layoutX="479.0" layoutY="246.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" text="Detailles L'article" textFill="WHITE" />
-      <JFXButton fx:id="addArticle1" buttonType="RAISED" layoutX="378.0" layoutY="246.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" text="Ajouté Article" textFill="WHITE" />
-      <JFXButton fx:id="cancel" buttonType="RAISED" layoutX="599.0" layoutY="463.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" text="Cancel" textFill="WHITE" />
-      <JFXButton fx:id="seeFacture" buttonType="RAISED" layoutX="489.0" layoutY="463.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" text="Visioner Facture" textFill="WHITE" />
-      <JFXButton fx:id="createFacture" buttonType="RAISED" layoutX="390.0" layoutY="463.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" text="Creé Facture" textFill="WHITE" />
+      <JFXButton fx:id="detaills" buttonType="RAISED" layoutX="479.0" layoutY="246.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" styleClass="FlatButton" text="Detailles L'article" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton fx:id="addArticle" buttonType="RAISED" layoutX="378.0" layoutY="246.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" styleClass="FlatButton" text="Ajouté Article" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton fx:id="cancel" buttonType="RAISED" layoutX="599.0" layoutY="463.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" styleClass="FlatButton" text="Cancel" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton fx:id="seeFacture" buttonType="RAISED" layoutX="489.0" layoutY="463.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" styleClass="FlatButton" text="Visioner Facture" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
+      <JFXButton fx:id="createFacture" buttonType="RAISED" layoutX="390.0" layoutY="463.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" styleClass="FlatButton" text="Creé Facture" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
    </children>
 </AnchorPane>

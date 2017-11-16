@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class AddFactureDetailsController implements Initializable{
 
@@ -46,7 +47,7 @@ public class AddFactureDetailsController implements Initializable{
     
 	 @FXML
 	    void onClick(MouseEvent event) {
-		 System.exit(-1);
+		 ((Stage) exit.getScene().getWindow()).close();
 	    } 
 
 }

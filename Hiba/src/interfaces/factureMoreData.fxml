@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +13,10 @@
       <Label fx:id="notificationCin" alignment="CENTER" layoutX="69.0" layoutY="55.0" prefWidth="70.0" styleClass="hint" stylesheets="@application.css" text="Empty Field" />
       <TextField fx:id="address" layoutX="194.0" layoutY="75.0" prefHeight="25.0" prefWidth="389.0" promptText="Addresse" />
       <TextField fx:id="cin" layoutX="21.0" layoutY="75.0" prefHeight="25.0" prefWidth="118.0" promptText="CIN" />
-      <JFXButton fx:id="Ajoute" buttonType="RAISED" layoutX="524.0" layoutY="128.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" text="Ajoute" textFill="WHITE" />
+      <JFXButton fx:id="Ajoute" buttonType="RAISED" layoutX="524.0" layoutY="128.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" styleClass="FlatButton" text="Ajoute" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
       <Label layoutX="21.0" layoutY="19.0" text="SVP remplire ces Donnes :">
          <font>
             <Font name="System Bold" size="16.0" />

@@ -19,6 +19,16 @@
 	-fx-background-color: #1E88E5 ;
 	-fx-text-fill: white ;
 }
+
+.FlatButton:hover{
+-fx-effect:dropshadow(gaussian,black, 8.0, 0.0, 0.0, 0.0);
+-fx-background-color: #90A4AE ;
+-fx-text-fill: white ;
+}
+.FlatButton:hover{
+-fx-background-color:  #607D8B;
+-fx-text-fill: white ;
+}
 #title{
 	 		-fx-color: #c9d0d4;
 		 -fx-font-family: 'Helvetica Neue';
