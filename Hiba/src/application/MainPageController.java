@@ -10,9 +10,11 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -33,12 +35,14 @@ public class MainPageController implements Initializable {
 	private Label title;
 	@FXML
 	private AnchorPane rootP;
-
+	
 	public static AnchorPane RootP;
 	public static JFXDrawer Drawer ;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		//To Make The Buttons 
+		rootP.toFront();
 		try {
 			RootP = rootP;
 			Drawer=drawer ;
@@ -56,9 +60,12 @@ public class MainPageController implements Initializable {
 
 			if (drawer.isShown()) {
 				drawer.close();
-			} else
-				drawer.open();
+				rootP.toFront();
+			} else{
+				drawer.toFront();;
+				drawer.open();}
 		});
 	}
 
 }
+

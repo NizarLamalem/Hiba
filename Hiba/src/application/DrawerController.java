@@ -23,43 +23,42 @@ public class DrawerController {
 
 	@FXML
 	private JFXButton Exite;
-	
-	
-	 @FXML
-	    void onClick(MouseEvent event) throws IOException {
-		
-		 String Destination = "Null";
-			Object Tmp = event.getSource();
-			if (Tmp == nouvelleFacture) {
-				// todo Tratment Nouvelle Facture ;
-				Destination = "AddFacture";
-				
+
+	@FXML
+	void onClick(MouseEvent event) throws IOException {
+
+		String Destination = "Null";
+		Object Tmp = event.getSource();
+		if (Tmp == nouvelleFacture) {
+			// todo Tratment Nouvelle Facture ;
+			Destination = "AddFacture";
+
+		} else {
+			if (Tmp == afficherArticles) {
+				// todo article Tretment
+				Destination = "SearchProducts";
 			} else {
-				if (Tmp == afficherArticles) {
-					// todo article Tretment
-					Destination = "SearchProducts";
+				if (Tmp == afficherFactures) {
+					// ToDo Facture Treatment
+					Destination = "SearchFactures";
 				} else {
-					if (Tmp == afficherFactures) {
-						// ToDo Facture Treatment
-						Destination = "SearchFactures";
-					} else {
-						if (Tmp == Exite) {
-							System.exit(-1);
-							System.out.println("Exit");
-						}
+					if (Tmp == Exite) {
+						System.exit(-1);
+						System.out.println("Exit");
 					}
 				}
 			}
-			MainPageController.Drawer.close();
-			if (Destination != null&&MainPageController.RootP!=null) {
-				MainPageController.RootP.getChildren().setAll(
-						(AnchorPane) FXMLLoader.load(getClass().getResource("/interfaces/" +Destination+ ".fxml")));
-				Destination = "null";
-				 System.out.println("Destination and RootP are Not Null");
-				
-			}
+		}
+		MainPageController.Drawer.close();
+		MainPageController.RootP.toFront();
+		if (Destination != null && MainPageController.RootP != null) {
+			MainPageController.RootP.getChildren().setAll(
+					(AnchorPane) FXMLLoader.load(getClass().getResource("/interfaces/" + Destination + ".fxml")));
+			Destination = "null";
+			
 
-	    }
+		}
 
+	}
 
 }

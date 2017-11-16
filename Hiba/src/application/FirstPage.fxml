@@ -19,6 +19,6 @@
          </font>
       </Label>
       <AnchorPane fx:id="rootP" layoutX="35.0" layoutY="90.0" maxHeight="510.0" maxWidth="674.0" minHeight="510.0" minWidth="674.0" prefHeight="510.0" prefWidth="674.0" />
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="252.0" layoutX="-1.0" prefHeight="614.0" prefWidth="252.0" />
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="1000.0" layoutX="-1.0" overLayVisible="false" prefHeight="614.0" prefWidth="252.0" />
    </children>
 </AnchorPane>
