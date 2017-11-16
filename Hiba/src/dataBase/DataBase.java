@@ -102,6 +102,7 @@ public class DataBase {
 	private void cleanVariables() throws Exception {
 		rs.close();
 		stmt.close();
+		SQL="" ;
 	}
 
 	public Connection getConnection() {

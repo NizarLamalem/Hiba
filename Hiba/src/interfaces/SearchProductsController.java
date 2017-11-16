@@ -1,21 +1,27 @@
 package interfaces;
 
-
+import dataBase.*;
+import dao.Article;
+import application.Main;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
+
+import org.controlsfx.control.textfield.TextFields;
 
 import application.Main;
 import dao.Article;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 
-public class SearchProductsController {
+public class SearchProductsController implements Initializable{
 
     @FXML
     private TableView<Article> tableProducts;
@@ -76,9 +82,33 @@ public class SearchProductsController {
     	//}
     	tableProducts.setItems(data);
     }
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		setCellTable();
+    	try {
+			loadProducts();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	if(Main.Articles ==null){
+			try {
+				Main.Articles=Main.database.getArticles("-1") ;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		//Getting All The EV From
+		LinkedList<String> Tmp  =new LinkedList<String>() ;
+		for(Article A:Main.Articles){
+			Tmp.add(A.getEv()) ;
+		}
+		// TODO Auto-generated method stub
+		TextFields.bindAutoCompletion(chercherArticle,Tmp) ;
+	}
     
-    public void initialize(URL url, ResourceBundle rb) throws Exception {
-    	setCellTable();
-    	loadProducts();
-    } 
+
 }
