@@ -1,6 +1,6 @@
 package application;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import dao.*;
 import dataBase.DataBase;
@@ -13,8 +13,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	// DataBase Instance For All Program Use
 	static public DataBase database;
-	static public LinkedList<Article> Articles;
-	static public LinkedList<Facture> Factures;
+	static public ArrayList<Article> Articles;
+	static public ArrayList<Facture> Factures;
 
 	@Override
 	public void start(Stage primaryStage) {

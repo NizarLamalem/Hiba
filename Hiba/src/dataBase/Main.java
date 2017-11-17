@@ -1,5 +1,6 @@
 package dataBase;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import dao.Article;
@@ -10,7 +11,7 @@ public class Main {
 		//connecting test
 		DataBase base = new DataBase();
 		// Fetching Database Test
-		LinkedList<Article> articles = base.getArticles("EV-30");
+		ArrayList<Article> articles = base.getArticles("EV-30");
 		
 		
 		for (Article A : articles) {

@@ -13,11 +13,11 @@ public class StockQte {
 		this.qte = qte;
 	}
 
-	public String getSrock() {
+	public String getStock() {
 		return stock;
 	}
 
-	public void setId(String stock) {
+	public void setStock(String stock) {
 		this.stock = stock;
 	}
 

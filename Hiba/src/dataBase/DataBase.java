@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import dao.Article;
 import dao.Facture;
@@ -43,8 +43,8 @@ public class DataBase {
 
 	// This Function Will Returns Articls with The Specific Ids ==>if Id equals
 	// -1 Then its Gooing return a all the Article
-	public LinkedList<Article> getArticles(String ev) throws Exception {
-		LinkedList<Article> articls = new LinkedList<>();
+	public ArrayList<Article> getArticles(String ev) throws Exception {
+		ArrayList<Article> articls = new ArrayList<>();
 		if (ev.equals("-1")) {
 			SQL = "SELECT * FROM `article`";
 
@@ -52,7 +52,7 @@ public class DataBase {
 			SQL = "SELECT * FROM `article` WHERE `Ev`='" + ev + "'";
 		}
 
-		// Adding The Articles to The LinkedList
+		// Adding The Articles to The ArrayList
 		rs = executeStatements(SQL);
 		while (rs.next()) {
 			articls.add(new Article(rs.getString("Ev"), rs.getInt("Type"), rs.getDouble("PrixTarif"),
@@ -66,8 +66,8 @@ public class DataBase {
 
 	// This Function Will Returns Articls with The Specific Ids ==>if Id equals
 	// -1 Then its Gooing return a all the Article
-	public LinkedList<Facture> getFactures(int id) throws Exception {
-		LinkedList<Facture> Factures = new LinkedList<>();
+	public ArrayList<Facture> getFactures(int id) throws Exception {
+		ArrayList<Facture> Factures = new ArrayList<>();
 		if (id == -1) {
 			SQL = "SELECT * FROM `facture`";
 
@@ -75,7 +75,7 @@ public class DataBase {
 			SQL = "SELECT * FROM `facture` WHERE `IDF` = '" + id + "'";
 		}
 
-		// Adding The factures to The LinkedList
+		// Adding The factures to The ArrayList
 		rs = executeStatements(SQL);
 		while (rs.next()) {
 			Factures.add(new Facture(rs.getInt("IDS"), rs.getInt("IDF"), rs.getDate("Date_Facture"),
@@ -86,12 +86,12 @@ public class DataBase {
 		return Factures;
 	}
 
-	public LinkedList<StockQte> getArticlesStocks(String ev) throws Exception {
-		LinkedList<StockQte> articlStq = new LinkedList<>();
+	public ArrayList<StockQte> getArticlesStocks(String ev) throws Exception {
+		ArrayList<StockQte> articlStq = new ArrayList<>();
 
 		SQL = "SELECT * FROM `stock-qte` WHERE `Ev`='" + ev + "'";
 
-		// Adding The Articles to The LinkedList
+		// Adding The Articles to The ArrayList
 		rs = executeStatements(SQL);
 		while (rs.next()) {
 			String Stock = null;

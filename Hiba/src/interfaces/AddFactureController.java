@@ -2,6 +2,8 @@ package interfaces;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
@@ -12,6 +14,7 @@ import com.jfoenix.controls.JFXButton;
 import application.Main;
 import dao.Article;
 import dao.StockQte;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,10 +45,10 @@ public class AddFactureController implements Initializable {
 	private TableView<StockQte> stockTable;
 
 	@FXML
-	private TableColumn<?, ?> stockColumn;
+	private TableColumn<StockQte, String> stockColumn;
 
 	@FXML
-	private TableColumn<?, ?> stockQuantityColumn;
+	private TableColumn<StockQte,Integer> stockQuantityColumn;
 
 	@FXML
 	private TableView<?> factureTable;
@@ -72,7 +75,7 @@ public class AddFactureController implements Initializable {
 	private JFXButton createFacture;
 	@FXML
 	private JFXButton detaills;
-	
+
 	private ObservableList<StockQte> stockTableData;
 
 	@FXML
@@ -104,14 +107,14 @@ public class AddFactureController implements Initializable {
 	@FXML
 	void OnAction(ActionEvent event) {
 		if (qst.getValue() != 0) {
-
+			fillTable(Article.getText());
 		}
 	}
 
 	@FXML
 	void OnActionEvent(MouseEvent event) {
 		if (qst.getValue() != 0 && Article.getText() != "") {
-
+			fillTable(Article.getText());
 		}
 	}
 
@@ -128,6 +131,7 @@ public class AddFactureController implements Initializable {
 			}
 		}
 
+		stockTableData = FXCollections.observableArrayList() ;
 		// Value factory takes the Min value , The Max Value , and The First
 		// Value to appear
 		SpinnerValueFactory<Integer> valueFactory = //
@@ -165,11 +169,18 @@ public class AddFactureController implements Initializable {
 			e1.printStackTrace();
 		}
 	}
-	
-	  private void setCellTable() {
-		  	stockColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
-	    	stockQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("qte"));
-	    	
-	    }
+
+	private void fillTable(String ev) {
+		stockColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+		stockQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("qte"));
+		try {
+			
+			stockTableData.addAll(FXCollections.observableArrayList(Main.database.getArticlesStocks(ev) ));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		stockTable.setItems(stockTableData);
+	}
 
 }
