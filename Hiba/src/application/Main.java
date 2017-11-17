@@ -36,4 +36,20 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	static public void refrech_Articles(){
+		try {
+			Articles = database.getArticles("-1");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	static public void refrech_Factures(){
+		try {
+			Factures = database.getFactures(-1);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

@@ -8,6 +8,7 @@ import java.util.LinkedList;
 
 import dao.Article;
 import dao.Facture;
+import dao.StockQte;
 
 public class DataBase {
 	// The DataVase Connection
@@ -48,48 +49,73 @@ public class DataBase {
 			SQL = "SELECT * FROM `article`";
 
 		} else {
-			SQL = "SELECT * FROM `article` WHERE `Ev`='"+ ev+"'";
+			SQL = "SELECT * FROM `article` WHERE `Ev`='" + ev + "'";
 		}
-		
-		//Adding The Articles to The LinkedList
+
+		// Adding The Articles to The LinkedList
 		rs = executeStatements(SQL);
 		while (rs.next()) {
-			articls.add(new Article(rs.getString("Ev"),rs.getInt("Type"),
-					rs.getDouble("PrixTarif"), rs.getDouble("PrixNette"), 
-					rs.getDouble("Ht"), rs.getDouble("TVA"), 
-					rs.getString("Desig"), rs.getString("ref"))) ;
+			articls.add(new Article(rs.getString("Ev"), rs.getInt("Type"), rs.getDouble("PrixTarif"),
+					rs.getDouble("PrixNette"), rs.getDouble("Ht"), rs.getDouble("TVA"), rs.getString("Desig"),
+					rs.getString("ref")));
 		}
 		cleanVariables();
-		//Check If The Articles Are Empty
-		return articls ;
+		// Check If The Articles Are Empty
+		return articls;
 	}
-	
-	// This Function Will Returns Articls with The Specific Ids ==>if Id equals
-		// -1 Then its Gooing return a all the Article
-		public LinkedList<Facture> getFactures(int id) throws Exception {
-			LinkedList<Facture> Factures = new LinkedList<>();
-			if (id == -1) {
-				SQL = "SELECT * FROM `facture`";
 
-			} else {
-				SQL = "SELECT * FROM `facture` WHERE `IDF` = '"+ id+"'";
-			}
-			
-			//Adding The factures to The LinkedList
-			rs = executeStatements(SQL);
-			while (rs.next()) {
-				Factures.add(new Facture(rs.getInt("IDS"),rs.getInt("IDF"),
-						rs.getDate("Date_Facture"), rs.getDouble("PriceHT"), 
-						rs.getDouble("PriceTTC"), 
-						rs.getString("CIN"), rs.getString("Address"))) ;
-			}
-			cleanVariables();
-			//Check If The Factures Are Empty
-			return Factures ;
+	// This Function Will Returns Articls with The Specific Ids ==>if Id equals
+	// -1 Then its Gooing return a all the Article
+	public LinkedList<Facture> getFactures(int id) throws Exception {
+		LinkedList<Facture> Factures = new LinkedList<>();
+		if (id == -1) {
+			SQL = "SELECT * FROM `facture`";
+
+		} else {
+			SQL = "SELECT * FROM `facture` WHERE `IDF` = '" + id + "'";
 		}
-		
-		
-		
+
+		// Adding The factures to The LinkedList
+		rs = executeStatements(SQL);
+		while (rs.next()) {
+			Factures.add(new Facture(rs.getInt("IDS"), rs.getInt("IDF"), rs.getDate("Date_Facture"),
+					rs.getDouble("PriceHT"), rs.getDouble("PriceTTC"), rs.getString("CIN"), rs.getString("Address")));
+		}
+		cleanVariables();
+		// Check If The Factures Are Empty
+		return Factures;
+	}
+
+	public LinkedList<StockQte> getArticlesStocks(String ev) throws Exception {
+		LinkedList<StockQte> articlStq = new LinkedList<>();
+
+		SQL = "SELECT * FROM `stock-qte` WHERE `Ev`='" + ev + "'";
+
+		// Adding The Articles to The LinkedList
+		rs = executeStatements(SQL);
+		while (rs.next()) {
+			String Stock = null;
+			switch (rs.getInt("ID")) {
+			case 1:
+				Stock = "D";
+				break;
+			case 2:
+				Stock = "M";
+				break;
+			case 3:
+				Stock = "P";
+				break;
+			case 4:
+				Stock = "EX";
+				break;
+			}
+			articlStq.add(new StockQte(Stock, rs.getString("EV"), rs.getInt("Qte")));
+
+		}
+		cleanVariables();
+		// Check If The Articles Are Empty
+		return articlStq;
+	}
 
 	// The Executing Query Task is a repetitive code
 	private ResultSet executeStatements(String sql) throws Exception {
@@ -97,12 +123,11 @@ public class DataBase {
 		return stmt.executeQuery(sql);
 	}
 
-	
 	// Cleaning The Variables in case of a future Bugs or something
 	private void cleanVariables() throws Exception {
 		rs.close();
 		stmt.close();
-		SQL="" ;
+		SQL = "";
 	}
 
 	public Connection getConnection() {

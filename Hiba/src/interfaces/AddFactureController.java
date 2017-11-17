@@ -8,18 +8,25 @@ import java.util.ResourceBundle;
 import org.controlsfx.control.textfield.TextFields;
 
 import com.jfoenix.controls.JFXButton;
-import dao.*;
+
 import application.Main;
-import application.MainPageController;
+import dao.Article;
+import dao.StockQte;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -32,7 +39,7 @@ public class AddFactureController implements Initializable {
 	private Spinner<Integer> qst;
 
 	@FXML
-	private TableView<?> stockTable;
+	private TableView<StockQte> stockTable;
 
 	@FXML
 	private TableColumn<?, ?> stockColumn;
@@ -65,11 +72,13 @@ public class AddFactureController implements Initializable {
 	private JFXButton createFacture;
 	@FXML
 	private JFXButton detaills;
+	
+	private ObservableList<StockQte> stockTableData;
 
 	@FXML
 	void onClick(MouseEvent event) {
 		if (event.getSource() == detaills) {
-			Action("AddFactureDetails");
+			Action("AddFactureDetails", "Plus d'information");
 
 		} else {
 			if (event.getSource() == createFacture) {
@@ -79,8 +88,8 @@ public class AddFactureController implements Initializable {
 
 				} else {
 					if (event.getSource() == addArticle) {
-						//TODO test if Its not Taxable
-						Action("factureMoreData");
+						// TODO test if Its not Taxable
+						Action("factureMoreData", "Plus D'information Nécessaire");
 					} else {
 						if (event.getSource() == cancel) {
 
@@ -92,19 +101,37 @@ public class AddFactureController implements Initializable {
 
 	}
 
+	@FXML
+	void OnAction(ActionEvent event) {
+		if (qst.getValue() != 0) {
+
+		}
+	}
+
+	@FXML
+	void OnActionEvent(MouseEvent event) {
+		if (qst.getValue() != 0 && Article.getText() != "") {
+
+		}
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// When ever We are Using Articles Or Factures We Gonna check
 		// if we alredy have the data stores in our App
-
 		if (Main.Articles == null) {
 			try {
-				Main.Articles = Main.database.getArticles("-1");
+				Main.refrech_Articles();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+
+		// Value factory takes the Min value , The Max Value , and The First
+		// Value to appear
+		SpinnerValueFactory<Integer> valueFactory = //
+		new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0);
 		// Getting All The EV From
 		LinkedList<String> Tmp = new LinkedList<String>();
 		for (Article A : Main.Articles) {
@@ -112,13 +139,15 @@ public class AddFactureController implements Initializable {
 		}
 		// TODO Auto-generated method stub
 		TextFields.bindAutoCompletion(Article, Tmp);
+		qst.setValueFactory(valueFactory);
+
 	}
 
-	public void Action(String xmlFile) {
-		Stage A ;
-		Scene Sc ;
-		Parent root ;
-		
+	public void Action(String xmlFile, String Title) {
+		Stage A;
+		Scene Sc;
+		Parent root;
+
 		try {
 			root = FXMLLoader.load(getClass().getResource("/interfaces/" + xmlFile + ".fxml"));
 			Sc = new Scene(root);
@@ -126,7 +155,7 @@ public class AddFactureController implements Initializable {
 
 			A = new Stage();
 			A.initOwner((Stage) cancel.getScene().getWindow());
-			A.setTitle(xmlFile);
+			A.setTitle(Title);
 			A.setScene(Sc);
 			A.setResizable(false);
 			A.initModality(Modality.WINDOW_MODAL);
@@ -136,5 +165,11 @@ public class AddFactureController implements Initializable {
 			e1.printStackTrace();
 		}
 	}
+	
+	  private void setCellTable() {
+		  	stockColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+	    	stockQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("qte"));
+	    	
+	    }
 
 }
