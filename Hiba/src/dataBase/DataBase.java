@@ -51,7 +51,7 @@ public class DataBase {
 		} else {
 			SQL = "SELECT * FROM `article` WHERE `Ev`='" + ev + "'";
 		}
-
+			//System.out.println(SQL);
 		// Adding The Articles to The ArrayList
 		rs = executeStatements(SQL);
 		while (rs.next()) {
@@ -97,10 +97,10 @@ public class DataBase {
 			String Stock = null;
 			switch (rs.getInt("ID")) {
 			case 1:
-				Stock = "D";
+				Stock = "M";
 				break;
 			case 2:
-				Stock = "M";
+				Stock = "D";
 				break;
 			case 3:
 				Stock = "P";

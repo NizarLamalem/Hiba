@@ -76,6 +76,12 @@ public class AddFactureController implements Initializable {
 	private JFXButton detaills;
 
 	private ObservableList<StockQte> stockTableData;
+	// Hors Taxes ==0 and Exonory
+	private int Type = -1;
+	// The Stock Of The Current facture
+	private String Stock = "";
+
+	public static Article currentArticle;
 
 	@FXML
 	void onClick(MouseEvent event) {
@@ -84,14 +90,23 @@ public class AddFactureController implements Initializable {
 
 		} else {
 			if (event.getSource() == createFacture) {
-
+				Stock="" ;
+				Type=-1 ;
 			} else {
 				if (event.getSource() == seeFacture) {
 
 				} else {
 					if (event.getSource() == addArticle) {
 						// TODO test if Its not Taxable
-						Action("factureMoreData", "Plus D'information Nécessaire");
+						if (qst.getValue() != 0 && Article.getText() != "") {
+							
+							System.out.println("Type ==+> "+Type);
+							if (Type == 1) {
+								Action("factureMoreData", "Plus D'information Nécessaire");
+							} else {
+
+							}
+						}
 					} else {
 						if (event.getSource() == cancel) {
 
@@ -105,13 +120,24 @@ public class AddFactureController implements Initializable {
 
 	@FXML
 	void OnAction(ActionEvent event) {
-		if (qst.getValue() != 0) {
-			fillTable(Article.getText());
+		try {
+
+			stockTable.getItems().clear();
+
+			if (qst.getValue() != 0) {
+				//System.out.println(Article.getText());
+				currentArticle = Main.database.getArticles(Article.getText()).get(0);
+				//System.out.println(currentArticle);
+				fillTable(Article.getText());
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 	}
 
 	@FXML
 	void OnActionEvent(MouseEvent event) {
+		stockTable.getItems().clear();
 		if (qst.getValue() != 0 && Article.getText() != "") {
 			fillTable(Article.getText());
 		}
@@ -129,7 +155,8 @@ public class AddFactureController implements Initializable {
 				e.printStackTrace();
 			}
 		}
-
+		stockColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+		stockQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("qte"));
 		stockTableData = FXCollections.observableArrayList();
 		// Value factory takes the Min value , The Max Value , and The First
 		// Value to appear
@@ -170,46 +197,64 @@ public class AddFactureController implements Initializable {
 	}
 
 	private void fillTable(String ev) {
-		stockColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
-		stockQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("qte"));
-		//The Stock qst return by Database ,
-		ArrayList<StockQte> stockQte =null;
+		// The Stock qst return by Database ,
+		ArrayList<StockQte> stockQte = null;
 		try {
-			stockQte =Main.database.getArticlesStocks(ev) ;
-			stockQte=tableCheckData(stockQte) ;
+			stockQte = Main.database.getArticlesStocks(ev);
+			stockQte = dataBasesThatCanSatisfactTheQuantityOrdered(stockQte);
 			stockTableData.addAll(FXCollections.observableArrayList(stockQte));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		stockTable.setItems(stockTableData);
 
 	}
 
-	// Monitore The databases and return only those who will satisfact the
-	// cquantity
-	private ArrayList<StockQte> tableCheckData(ArrayList<StockQte> stockQt) {
-		stockQt=OrdrStocks(stockQt) ;
-		for(StockQte A : stockQt){
-			System.out.println(A);
+	// Monitor The databases and return only those who will satisfact the
+	// quantity
+	private ArrayList<StockQte> dataBasesThatCanSatisfactTheQuantityOrdered(ArrayList<StockQte> stockQt) {
+		stockQt = OrdrStocks(stockQt);
+		ArrayList<StockQte> listFinal = new ArrayList<StockQte>();
+		
+		//Save The Stock Type For FuTure Use
+		Stock = stockQt.get(0).getStock();
+		Type = currentArticle.getType();
+		// for collecting and add all The quantities togather
+		int size = 0;
+		for (int i = 0; i < stockQt.size(); i++) {
+			listFinal.add(stockQt.get(i));
+			size += stockQt.get(i).getQte();
+			// System.out.println(stockQt.get(i));
+			if (stockQt.get(i).getQte() >= qst.getValue()) {
+				// System.out.println(stockQt.get(i));
+				// System.out.println("The Spinner Value =+>" + qst.getValue());
+				return listFinal;
+			}
+			// when The Size of the Article in the mentioned ataBase after
+			// adding them together become more then the qte mentioned
+			if (size >= qst.getValue()) {
+				return listFinal;
+			}
+
 		}
-		return stockQt;
+		return listFinal;
 	}
-	
+
 	// ordring the list in ordre to make the traitment much easier
-	private  ArrayList<StockQte> OrdrStocks(ArrayList<StockQte> stockQt) {
-			Collections.sort(stockQt, new Comparator<StockQte>() {
-				@Override
-				public int compare(StockQte o1, StockQte o2) {
-					if (o1.getId() > o2.getId())
-						return 1;
-					if (o2.getId() > o1.getId())
-						return -1;
-					return 0;
-				}
-			});
-			return stockQt;
+	private ArrayList<StockQte> OrdrStocks(ArrayList<StockQte> stockQt) {
+		Collections.sort(stockQt, new Comparator<StockQte>() {
+			@Override
+			public int compare(StockQte o1, StockQte o2) {
+				if (o1.getId() > o2.getId())
+					return 1;
+				if (o2.getId() > o1.getId())
+					return -1;
+				return 0;
+			}
+		});
+		return stockQt;
 	}
 
 }

@@ -10,44 +10,50 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class AddFactureDetailsController implements Initializable{
+public class AddFactureDetailsController implements Initializable {
 
-    @FXML
-    private JFXButton exit;
+	@FXML
+	private JFXButton exit;
 
-    @FXML
-    private TextField EV;
+	@FXML
+	private TextField EV;
 
-    @FXML
-    private TextField type;
+	@FXML
+	private TextField type;
 
-    @FXML
-    private TextField prixNette;
+	@FXML
+	private TextField prixNette;
 
-    @FXML
-    private TextField tva;
+	@FXML
+	private TextField tva;
 
-    @FXML
-    private TextField prixTarif;
+	@FXML
+	private TextField prixTarif;
 
-    @FXML
-    private TextField ht;
+	@FXML
+	private TextField ht;
 
-    @FXML
-    private TextField designation;
+	@FXML
+	private TextField designation;
 
-    @FXML
-    private TextField refference;
+	@FXML
+	private TextField refference;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
+
+		if (AddFactureController.currentArticle != null) {
+			designation.setText(AddFactureController.currentArticle.getDesignation());
+			EV.setText(AddFactureController.currentArticle.getEv());
+
+		}
+
 	}
-    
-	 @FXML
-	    void onClick(MouseEvent event) {
-		 ((Stage) exit.getScene().getWindow()).close();
-	    } 
+
+	@FXML
+	void onClick(MouseEvent event) {
+		((Stage) exit.getScene().getWindow()).close();
+	}
 
 }
