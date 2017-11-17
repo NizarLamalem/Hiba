@@ -6,13 +6,25 @@ public class StockQte {
 	private String ev;
 	private int qte;
 
-	public StockQte(String stock, String ev, int qte) {
+
+	public StockQte(String stock, String ev, int qte,int id) {
 		super();
 		this.stock = stock;
 		this.ev = ev;
 		this.qte = qte;
+		this.id=id ;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	private int id ;
+	
 	public String getStock() {
 		return stock;
 	}

@@ -91,7 +91,7 @@ public class DataBase {
 
 		SQL = "SELECT * FROM `stock-qte` WHERE `Ev`='" + ev + "'";
 
-		// Adding The Articles to The ArrayList
+		// Adding The Stocks to The ArrayList
 		rs = executeStatements(SQL);
 		while (rs.next()) {
 			String Stock = null;
@@ -109,7 +109,7 @@ public class DataBase {
 				Stock = "EX";
 				break;
 			}
-			articlStq.add(new StockQte(Stock, rs.getString("EV"), rs.getInt("Qte")));
+			articlStq.add(new StockQte(Stock, rs.getString("EV"), rs.getInt("Qte"),rs.getInt("ID")));
 
 		}
 		cleanVariables();

@@ -3,7 +3,8 @@ package interfaces;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
@@ -28,8 +29,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.InputMethodEvent;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -48,7 +47,7 @@ public class AddFactureController implements Initializable {
 	private TableColumn<StockQte, String> stockColumn;
 
 	@FXML
-	private TableColumn<StockQte,Integer> stockQuantityColumn;
+	private TableColumn<StockQte, Integer> stockQuantityColumn;
 
 	@FXML
 	private TableView<?> factureTable;
@@ -131,7 +130,7 @@ public class AddFactureController implements Initializable {
 			}
 		}
 
-		stockTableData = FXCollections.observableArrayList() ;
+		stockTableData = FXCollections.observableArrayList();
 		// Value factory takes the Min value , The Max Value , and The First
 		// Value to appear
 		SpinnerValueFactory<Integer> valueFactory = //
@@ -173,14 +172,44 @@ public class AddFactureController implements Initializable {
 	private void fillTable(String ev) {
 		stockColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
 		stockQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("qte"));
+		//The Stock qst return by Database ,
+		ArrayList<StockQte> stockQte =null;
 		try {
-			
-			stockTableData.addAll(FXCollections.observableArrayList(Main.database.getArticlesStocks(ev) ));
+			stockQte =Main.database.getArticlesStocks(ev) ;
+			stockQte=tableCheckData(stockQte) ;
+			stockTableData.addAll(FXCollections.observableArrayList(stockQte));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		stockTable.setItems(stockTableData);
+
+	}
+
+	// Monitore The databases and return only those who will satisfact the
+	// cquantity
+	private ArrayList<StockQte> tableCheckData(ArrayList<StockQte> stockQt) {
+		stockQt=OrdrStocks(stockQt) ;
+		for(StockQte A : stockQt){
+			System.out.println(A);
+		}
+		return stockQt;
+	}
+	
+	// ordring the list in ordre to make the traitment much easier
+	private  ArrayList<StockQte> OrdrStocks(ArrayList<StockQte> stockQt) {
+			Collections.sort(stockQt, new Comparator<StockQte>() {
+				@Override
+				public int compare(StockQte o1, StockQte o2) {
+					if (o1.getId() > o2.getId())
+						return 1;
+					if (o2.getId() > o1.getId())
+						return -1;
+					return 0;
+				}
+			});
+			return stockQt;
 	}
 
 }
