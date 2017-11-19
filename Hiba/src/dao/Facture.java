@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.Date;
+import java.util.LinkedList;
 
 public class Facture {
 
@@ -12,6 +13,8 @@ public class Facture {
 	private String cin;
 	private String address;
 
+	private LinkedList<Article> articleList;
+
 	public Facture(int ids, int idf, Date date_Facture, double priceHT, double priceTTC, String cin, String address) {
 		super();
 		this.ids = ids;
@@ -21,6 +24,11 @@ public class Facture {
 		this.priceTTC = priceTTC;
 		this.cin = cin;
 		this.address = address;
+		articleList = new LinkedList<>();
+	}
+
+	public Facture() {
+		articleList = new LinkedList<>();
 	}
 
 	public int getIds() {
@@ -83,6 +91,11 @@ public class Facture {
 	public String toString() {
 		return "Facture [ids=" + ids + ", idf=" + idf + ", date_Facture=" + date_Facture + ", priceHT=" + priceHT
 				+ ", priceTTC=" + priceTTC + ", cin=" + cin + ", address=" + address + "]";
+	}
+
+	public void addArticle(Article e) {
+		if(!articleList.contains(e))
+		articleList.add(e);
 	}
 
 }

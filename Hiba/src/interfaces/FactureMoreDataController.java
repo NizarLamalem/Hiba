@@ -36,7 +36,7 @@ public class FactureMoreDataController implements Initializable {
 	@FXML
 	void onClick(MouseEvent event) {
 		hideNotification();
-		for (int i = 0; i <2; i++) {
+		for (int i = 0; i < 2; i++) {
 			if (Fields[i].getText().equals("")) {
 				Notifications[i].setOpacity(1);
 				if (wrong == false)
@@ -46,7 +46,9 @@ public class FactureMoreDataController implements Initializable {
 		// If All The Data Is Set
 		// Insert Give The Data To The Main Interface ;
 		if (!wrong) {
-			//TODO Do Treatment
+			// TODO Do Treatment
+			AddFactureController.ADDRESS = address.getText();
+			AddFactureController.CIN = address.getText();
 			((Stage) Ajoute.getScene().getWindow()).close();
 		}
 	}

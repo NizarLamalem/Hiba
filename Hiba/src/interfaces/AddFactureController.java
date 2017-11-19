@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.Comparator;import java.util.Date;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
@@ -15,6 +15,7 @@ import com.jfoenix.controls.JFXButton;
 
 import application.Main;
 import dao.Article;
+import dao.Facture;
 import dao.StockQte;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -51,16 +52,13 @@ public class AddFactureController implements Initializable {
 	private TableColumn<StockQte, Integer> stockQuantityColumn;
 
 	@FXML
-	private TableView<?> factureTable;
+	private TableView<TokenData> factureTable;
 
 	@FXML
-	private TableColumn<?, ?> factureArticle;
+	private TableColumn<TokenData, String> factureArticle;
 
 	@FXML
-	private TableColumn<?, ?> factureQuantity;
-
-	@FXML
-	private TableColumn<?, ?> factureAction;
+	private TableColumn<TokenData, Integer> factureQuantity;
 
 	@FXML
 	private JFXButton addArticle;
@@ -78,13 +76,20 @@ public class AddFactureController implements Initializable {
 	@FXML
 	private JFXButton searchArticle;
 
+	private Facture currentFacture;
+
 	private ObservableList<StockQte> stockTableData;
+	private ObservableList<TokenData> FactureTableData;
+
+	private Facture facture;
 	// Hors Taxes ==0 and Exonory
 	private int Type = -1;
 	// The Stock Of The Current facture
 	private String Stock = "";
 
 	public static Article currentArticle;
+	public static String CIN;
+	public static String ADDRESS;
 
 	@FXML
 	void onClick(MouseEvent event) {
@@ -93,8 +98,9 @@ public class AddFactureController implements Initializable {
 
 		} else {
 			if (event.getSource() == createFacture) {
-				Stock = "";
-				Type = -1;
+				
+
+				clearAll();
 			} else {
 				if (event.getSource() == seeFacture) {
 
@@ -104,11 +110,10 @@ public class AddFactureController implements Initializable {
 						if (qst.getValue() != 0 && Article.getText() != "") {
 
 							System.out.println("Type ==+> " + Type);
-							if (Type == 1) {
+							if (Type == 1&&CIN!=""&&ADDRESS!="") {
 								Action("factureMoreData", "Plus D'information Nécessaire");
-							} else {
-
 							}
+
 						}
 					} else {
 						if (event.getSource() == cancel) {
@@ -123,7 +128,7 @@ public class AddFactureController implements Initializable {
 										// System.out.println(Article.getText());
 										currentArticle = Main.database.getArticles(Article.getText()).get(0);
 										// System.out.println(currentArticle);
-										fillTable(Article.getText());
+										fillTableStock(Article.getText());
 									}
 								} catch (Exception e) {
 									// TODO: handle exception
@@ -139,6 +144,8 @@ public class AddFactureController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+		facture = new Facture();
 		// When ever We are Using Articles Or Factures We Gonna check
 		// if we alredy have the data stores in our App
 		if (Main.Articles == null) {
@@ -149,9 +156,13 @@ public class AddFactureController implements Initializable {
 				e.printStackTrace();
 			}
 		}
+		factureArticle.setCellValueFactory(new PropertyValueFactory<>("ev"));
+		factureQuantity.setCellValueFactory(new PropertyValueFactory<>("qte"));
 		stockColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
 		stockQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("qte"));
+
 		stockTableData = FXCollections.observableArrayList();
+		FactureTableData = FXCollections.observableArrayList();
 		// Value factory takes the Min value , The Max Value , and The First
 		// Value to appear
 		SpinnerValueFactory<Integer> valueFactory = //
@@ -183,6 +194,18 @@ public class AddFactureController implements Initializable {
 			A.setScene(Sc);
 			A.setResizable(false);
 			A.initModality(Modality.WINDOW_MODAL);
+			if (xmlFile.equals("factureMoreData")) {
+				A.setOnHidden(e -> {
+					// process input here...
+					fillTableFacture(
+							new TokenData(currentArticle.getEv(), qst.getValue() < stockQuantityColumn.getCellData(0)
+									? qst.getValue() : stockQuantityColumn.getCellData(0)));
+					facture.addArticle(currentArticle);
+					facture.setAddress(ADDRESS);
+					facture.setCin(CIN);
+					facture.setDate_Facture(new Date());
+				});
+			}
 			A.show();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -190,7 +213,7 @@ public class AddFactureController implements Initializable {
 		}
 	}
 
-	private void fillTable(String ev) {
+	private void fillTableStock(String ev) {
 		// The Stock qst return by Database ,
 		ArrayList<StockQte> stockQte = null;
 		try {
@@ -203,6 +226,15 @@ public class AddFactureController implements Initializable {
 		}
 
 		stockTable.setItems(stockTableData);
+
+	}
+
+	public void fillTableFacture(TokenData article) {
+		// The Stock qst return by Database ,
+		ArrayList<TokenData> factureArticles = new ArrayList<>();
+		factureArticles.add(article);
+		FactureTableData.addAll(FXCollections.observableArrayList(factureArticles));
+		factureTable.setItems(FactureTableData);
 
 	}
 
@@ -259,6 +291,38 @@ public class AddFactureController implements Initializable {
 		currentArticle = null;
 		Stock = "";
 		Type = -1;
+		CIN = "";
+		ADDRESS = "";
+		facture=new Facture() ;
+	}
+
+	// This class serves one Purpose filling the table Facture
+	public class TokenData {
+		private String ev;
+		private int qte;
+
+		public TokenData(String ev, int qte) {
+			super();
+			this.ev = ev;
+			this.qte = qte;
+		}
+
+		public String getEv() {
+			return ev;
+		}
+
+		public void setEv(String ev) {
+			this.ev = ev;
+		}
+
+		public int getQte() {
+			return qte;
+		}
+
+		public void setQte(int qte) {
+			this.qte = qte;
+		}
+
 	}
 
 }

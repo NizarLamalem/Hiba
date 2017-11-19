@@ -12,7 +12,7 @@
    <children>
       <Spinner fx:id="qst" editable="true" layoutX="263.0" layoutY="27.0" />
       <TextField fx:id="Article" layoutX="87.0" layoutY="27.0" promptText="Article Ev" />
-      <TableView fx:id="stockTable" layoutX="87.0" layoutY="74.0" prefHeight="165.0" prefWidth="500.0" stylesheets="@../application/application.css">
+      <TableView fx:id="stockTable" layoutX="88.0" layoutY="72.0" prefHeight="165.0" prefWidth="500.0" stylesheets="@../application/application.css">
         <columns>
           <TableColumn fx:id="stockColumn" prefWidth="251.0" text="Stock" />
           <TableColumn fx:id="stockQuantityColumn" prefWidth="248.0" text="Quantité Total" />
@@ -21,7 +21,7 @@
       <TableView fx:id="factureTable" layoutX="87.0" layoutY="284.0" prefHeight="165.0" prefWidth="500.0">
          <columns>
             <TableColumn fx:id="factureArticle" prefWidth="250.0" text="Article" />
-            <TableColumn fx:id="factureQuantity" prefWidth="248.0" text="Qte" />
+            <TableColumn fx:id="factureQuantity" prefWidth="248.0" text="Quantité" />
          </columns>
       </TableView>
       <JFXButton fx:id="detaills" buttonType="RAISED" layoutX="479.0" layoutY="246.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" styleClass="FlatButton" text="Detailles L'article" textFill="WHITE">
