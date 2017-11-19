@@ -29,6 +29,10 @@ public class Facture {
 
 	public Facture() {
 		articleList = new LinkedList<>();
+		this.cin = "" ;
+		this.address ="" ;
+		this.priceHT =0;
+		this.priceTTC =0;
 	}
 
 	public int getIds() {
@@ -94,8 +98,13 @@ public class Facture {
 	}
 
 	public void addArticle(Article e) {
-		if(!articleList.contains(e))
-		articleList.add(e);
+		if (!articleList.contains(e))
+			articleList.add(e);
+	}
+
+	public LinkedList<Article> getArticleList() {
+
+		return articleList;
 	}
 
 }

@@ -51,7 +51,7 @@ public class DataBase {
 		} else {
 			SQL = "SELECT * FROM `article` WHERE `Ev`='" + ev + "'";
 		}
-			//System.out.println(SQL);
+		// System.out.println(SQL);
 		// Adding The Articles to The ArrayList
 		rs = executeStatements(SQL);
 		while (rs.next()) {
@@ -109,7 +109,7 @@ public class DataBase {
 				Stock = "EX";
 				break;
 			}
-			articlStq.add(new StockQte(Stock, rs.getString("EV"), rs.getInt("Qte"),rs.getInt("ID")));
+			articlStq.add(new StockQte(Stock, rs.getString("EV"), rs.getInt("Qte"), rs.getInt("ID")));
 
 		}
 		cleanVariables();
@@ -132,5 +132,16 @@ public class DataBase {
 
 	public Connection getConnection() {
 		return this.con;
+	}
+
+	public void addFacture(Facture facture) throws Exception {
+	//Here we add Facture its The Algo whats Missing
+		double priceTTc=0;
+		double priceHT=0;
+		for(Article A :facture.getArticleList()){
+		}
+		SQL = "INSERT INTO `facture`( `IDS`, `Date_Facture`, `PriceHT`, `PriceTTC`, `CIN`, `Address`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7])";
+
+		cleanVariables();
 	}
 }
