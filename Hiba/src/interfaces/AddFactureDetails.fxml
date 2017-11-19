@@ -11,7 +11,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="364.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfaces.AddFactureDetailsController">
    <children>
-      <JFXButton fx:id="exit" buttonType="RAISED" layoutX="322.0" layoutY="308.0" onMouseClicked="#onClick" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #607D8B;" styleClass="FlatButton" text="Quitter" textFill="WHITE">
+      <JFXButton fx:id="exit" buttonType="RAISED" layoutX="322.0" layoutY="308.0" onMouseClicked="#onClick" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #607D8B;" styleClass="FlatButton" stylesheets="@../application/application.css" text="Quitter" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></JFXButton>
@@ -36,17 +36,17 @@
       </VBox>
       <VBox layoutX="120.0" layoutY="50.0" prefHeight="205.0" prefWidth="80.0">
          <children>
-            <TextField fx:id="EV" disable="true" promptText="EV" styleClass="registerTextFields">
+            <TextField fx:id="EV" disable="true" promptText="EV" styleClass="input" stylesheets="@../application/application.css">
                <VBox.margin>
                   <Insets bottom="30.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="type" disable="true" promptText="Type" styleClass="registerTextFields">
+            <TextField fx:id="type" disable="true" promptText="Type" styleClass="input" stylesheets="@../application/application.css">
                <VBox.margin>
                   <Insets bottom="30.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="prixNette" disable="true" promptText="PrixNette" styleClass="registerTextFields">
+            <TextField fx:id="prixNette" disable="true" promptText="PrixNette" styleClass="input" stylesheets="@../application/application.css">
                <VBox.margin>
                   <Insets bottom="30.0" />
                </VBox.margin>
@@ -74,17 +74,17 @@
       </VBox>
       <VBox layoutX="303.0" layoutY="50.0" prefHeight="220.0" prefWidth="80.0">
          <children>
-            <TextField fx:id="tva" disable="true" promptText="Tva" styleClass="registerTextFields">
+            <TextField fx:id="tva" disable="true" promptText="Tva" styleClass="input" stylesheets="@../application/application.css">
                <VBox.margin>
                   <Insets bottom="30.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="prixTarif" disable="true" promptText="PrixTarif=" styleClass="registerTextFields">
+            <TextField fx:id="prixTarif" disable="true" promptText="PrixTarif=" styleClass="input" stylesheets="@../application/application.css">
                <VBox.margin>
                   <Insets bottom="30.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="ht" disable="true" promptText="HT" styleClass="registerTextFields">
+            <TextField fx:id="ht" disable="true" promptText="HT" styleClass="input" stylesheets="@../application/application.css">
                <VBox.margin>
                   <Insets bottom="30.0" />
                </VBox.margin>
@@ -95,9 +95,9 @@
          <font>
             <Font name="System Bold Italic" size="17.0" />
          </font></Label>
-      <Label layoutX="26.0" layoutY="216.0" prefHeight="17.0" prefWidth="113.0" styleClass="labels" text="Designation" />
-      <TextField fx:id="designation" disable="true" layoutX="145.0" layoutY="212.0" prefHeight="25.0" prefWidth="235.0" promptText="Designation" styleClass="registerTextFields" />
-      <Label layoutX="26.0" layoutY="258.0" prefHeight="17.0" prefWidth="69.0" styleClass="labels" stylesheets="@application.css" text="Refference" />
-      <TextField fx:id="refference" disable="true" layoutX="145.0" layoutY="254.0" prefHeight="25.0" prefWidth="235.0" promptText="Reffernce" styleClass="registerTextFields" />
+      <Label layoutX="40.0" layoutY="216.0" prefHeight="17.0" prefWidth="80.0" styleClass="labels" text="Designation" />
+      <TextField fx:id="designation" disable="true" layoutX="145.0" layoutY="212.0" prefHeight="25.0" prefWidth="235.0" promptText="Designation" styleClass="input" stylesheets="@../application/application.css" />
+      <Label layoutX="41.0" layoutY="258.0" prefHeight="17.0" prefWidth="69.0" styleClass="labels" stylesheets="@application.css" text="Refference" />
+      <TextField fx:id="refference" disable="true" layoutX="145.0" layoutY="254.0" prefHeight="25.0" prefWidth="235.0" promptText="Reffernce" styleClass="input" stylesheets="@../application/application.css" />
    </children>
 </Pane>

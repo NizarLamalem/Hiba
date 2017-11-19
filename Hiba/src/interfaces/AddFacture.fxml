@@ -10,8 +10,8 @@
 
 <AnchorPane maxHeight="510.0" maxWidth="674.0" minHeight="510.0" minWidth="674.0" prefHeight="510.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfaces.AddFactureController">
    <children>
-      <Spinner fx:id="qst" editable="true" layoutX="399.0" layoutY="27.0" />
-      <TextField fx:id="Article" layoutX="115.0" layoutY="27.0" onAction="#OnAction" promptText="Article Ev" />
+      <Spinner fx:id="qst" editable="true" layoutX="263.0" layoutY="27.0" />
+      <TextField fx:id="Article" layoutX="87.0" layoutY="27.0" promptText="Article Ev" />
       <TableView fx:id="stockTable" layoutX="87.0" layoutY="74.0" prefHeight="165.0" prefWidth="500.0" stylesheets="@../application/application.css">
         <columns>
           <TableColumn fx:id="stockColumn" prefWidth="251.0" text="Stock" />
@@ -44,5 +44,10 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></JFXButton>
+      <JFXButton fx:id="searchArticle" buttonType="RAISED" layoutX="463.0" layoutY="27.0" onMouseClicked="#onClick" style="-fx-background-color: #607D8B;" styleClass="FlatButton" stylesheets="@../application/application.css" text="Rechercher L'Article" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
    </children>
 </AnchorPane>

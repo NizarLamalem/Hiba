@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import org.controlsfx.control.textfield.TextFields;
+import org.omg.PortableServer.ServantRetentionPolicyValue;
 
 import com.jfoenix.controls.JFXButton;
 
@@ -74,6 +75,8 @@ public class AddFactureController implements Initializable {
 	private JFXButton createFacture;
 	@FXML
 	private JFXButton detaills;
+	@FXML
+	private JFXButton searchArticle;
 
 	private ObservableList<StockQte> stockTableData;
 	// Hors Taxes ==0 and Exonory
@@ -90,8 +93,8 @@ public class AddFactureController implements Initializable {
 
 		} else {
 			if (event.getSource() == createFacture) {
-				Stock="" ;
-				Type=-1 ;
+				Stock = "";
+				Type = -1;
 			} else {
 				if (event.getSource() == seeFacture) {
 
@@ -99,8 +102,8 @@ public class AddFactureController implements Initializable {
 					if (event.getSource() == addArticle) {
 						// TODO test if Its not Taxable
 						if (qst.getValue() != 0 && Article.getText() != "") {
-							
-							System.out.println("Type ==+> "+Type);
+
+							System.out.println("Type ==+> " + Type);
 							if (Type == 1) {
 								Action("factureMoreData", "Plus D'information Nécessaire");
 							} else {
@@ -109,38 +112,29 @@ public class AddFactureController implements Initializable {
 						}
 					} else {
 						if (event.getSource() == cancel) {
+							clearAll();
+						} else {
+							if (event.getSource() == searchArticle) {
+								try {
 
+									stockTable.getItems().clear();
+
+									if (qst.getValue() != 0) {
+										// System.out.println(Article.getText());
+										currentArticle = Main.database.getArticles(Article.getText()).get(0);
+										// System.out.println(currentArticle);
+										fillTable(Article.getText());
+									}
+								} catch (Exception e) {
+									// TODO: handle exception
+								}
+							}
 						}
 					}
 				}
 			}
 		}
 
-	}
-
-	@FXML
-	void OnAction(ActionEvent event) {
-		try {
-
-			stockTable.getItems().clear();
-
-			if (qst.getValue() != 0) {
-				//System.out.println(Article.getText());
-				currentArticle = Main.database.getArticles(Article.getText()).get(0);
-				//System.out.println(currentArticle);
-				fillTable(Article.getText());
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
-
-	@FXML
-	void OnActionEvent(MouseEvent event) {
-		stockTable.getItems().clear();
-		if (qst.getValue() != 0 && Article.getText() != "") {
-			fillTable(Article.getText());
-		}
 	}
 
 	@Override
@@ -217,8 +211,8 @@ public class AddFactureController implements Initializable {
 	private ArrayList<StockQte> dataBasesThatCanSatisfactTheQuantityOrdered(ArrayList<StockQte> stockQt) {
 		stockQt = OrdrStocks(stockQt);
 		ArrayList<StockQte> listFinal = new ArrayList<StockQte>();
-		
-		//Save The Stock Type For FuTure Use
+
+		// Save The Stock Type For FuTure Use
 		Stock = stockQt.get(0).getStock();
 		Type = currentArticle.getType();
 		// for collecting and add all The quantities togather
@@ -255,6 +249,16 @@ public class AddFactureController implements Initializable {
 			}
 		});
 		return stockQt;
+	}
+
+	private void clearAll() {
+		factureTable.getItems().clear();
+		stockTable.getItems().clear();
+		Article.setText("");
+		qst.getValueFactory().setValue(0);
+		currentArticle = null;
+		Stock = "";
+		Type = -1;
 	}
 
 }
