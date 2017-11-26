@@ -35,6 +35,7 @@ public class FactureMoreDataController implements Initializable {
 
 	@FXML
 	void onClick(MouseEvent event) {
+		wrong = false;
 		hideNotification();
 		for (int i = 0; i < 2; i++) {
 			if (Fields[i].getText().equals("")) {

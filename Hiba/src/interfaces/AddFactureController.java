@@ -81,7 +81,7 @@ public class AddFactureController implements Initializable {
 	private ObservableList<StockQte> stockTableData;
 	private ObservableList<TokenData> FactureTableData;
 
-	private Facture facture;
+	public static Facture facture;
 	// Hors Taxes ==0 and Exonory
 	private int Type = -1;
 	// The Stock Of The Current facture
