@@ -88,8 +88,8 @@ public class AddFactureController implements Initializable {
 	private String Stock = "";
 
 	public static Article currentArticle;
-	public static String CIN;
-	public static String ADDRESS;
+	public static String CIN="";
+	public static String ADDRESS="";
 
 	@FXML
 	void onClick(MouseEvent event) {
@@ -110,8 +110,10 @@ public class AddFactureController implements Initializable {
 						if (qst.getValue() != 0 && Article.getText() != "") {
 
 							System.out.println("Type ==+> " + Type);
-							if (Type == 1&&CIN!=""&&ADDRESS!="") {
+							if (Type == 1&&CIN==""&&ADDRESS=="") {
 								Action("factureMoreData", "Plus D'information Nécessaire");
+							}else{
+								AddToTableFacture() ;
 							}
 
 						}
@@ -197,13 +199,7 @@ public class AddFactureController implements Initializable {
 			if (xmlFile.equals("factureMoreData")) {
 				A.setOnHidden(e -> {
 					// process input here...
-					fillTableFacture(
-							new TokenData(currentArticle.getEv(), qst.getValue() < stockQuantityColumn.getCellData(0)
-									? qst.getValue() : stockQuantityColumn.getCellData(0)));
-					facture.addArticle(currentArticle);
-					facture.setAddress(ADDRESS);
-					facture.setCin(CIN);
-					facture.setDate_Facture(new Date());
+					AddToTableFacture() ;
 				});
 			}
 			A.show();
@@ -294,6 +290,16 @@ public class AddFactureController implements Initializable {
 		CIN = "";
 		ADDRESS = "";
 		facture=new Facture() ;
+	}
+	//After all the Tests This methode gonna add the desired Article to The Table
+	private void AddToTableFacture(){
+		fillTableFacture(
+				new TokenData(currentArticle.getEv(), qst.getValue() < stockQuantityColumn.getCellData(0)
+						? qst.getValue() : stockQuantityColumn.getCellData(0)));
+		facture.addArticle(currentArticle);
+		facture.setAddress(ADDRESS);
+		facture.setCin(CIN);
+		facture.setDate_Facture(new Date());
 	}
 
 	// This class serves one Purpose filling the table Facture
