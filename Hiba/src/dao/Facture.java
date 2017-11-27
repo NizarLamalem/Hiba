@@ -3,6 +3,9 @@ package dao;
 import java.util.Date;
 import java.util.LinkedList;
 
+import interfaces.AddFactureController;
+import interfaces.AddFactureController.TokenData;
+
 public class Facture {
 
 	private int ids;
@@ -14,6 +17,7 @@ public class Facture {
 	private String address;
 
 	private LinkedList<Article> articleList;
+	private LinkedList<AddFactureController.TokenData> tokenList;
 
 	public Facture(int ids, int idf, Date date_Facture, double priceHT, double priceTTC, String cin, String address) {
 		super();
@@ -25,14 +29,16 @@ public class Facture {
 		this.cin = cin;
 		this.address = address;
 		articleList = new LinkedList<>();
+		tokenList = new LinkedList<>();
 	}
 
 	public Facture() {
 		articleList = new LinkedList<>();
-		this.cin = "" ;
-		this.address ="" ;
-		this.priceHT =0;
-		this.priceTTC =0;
+		tokenList = new LinkedList<>();
+		this.cin = "";
+		this.address = "";
+		this.priceHT = 0;
+		this.priceTTC = 0;
 	}
 
 	public int getIds() {
@@ -105,6 +111,15 @@ public class Facture {
 	public LinkedList<Article> getArticleList() {
 
 		return articleList;
+	}
+
+	public void addTokenData(TokenData e) {
+		if (!tokenList.contains(e))
+			tokenList.add(e);
+	}
+
+	public LinkedList<AddFactureController.TokenData> getTokenData() {
+		return tokenList;
 	}
 
 }

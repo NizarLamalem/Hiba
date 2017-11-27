@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;import java.util.Date;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
@@ -25,6 +26,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
@@ -76,8 +79,6 @@ public class AddFactureController implements Initializable {
 	@FXML
 	private JFXButton searchArticle;
 
-	private Facture currentFacture;
-
 	private ObservableList<StockQte> stockTableData;
 	private ObservableList<TokenData> FactureTableData;
 
@@ -88,8 +89,8 @@ public class AddFactureController implements Initializable {
 	private String Stock = "";
 
 	public static Article currentArticle;
-	public static String CIN="";
-	public static String ADDRESS="";
+	public static String CIN = "";
+	public static String ADDRESS = "";
 
 	@FXML
 	void onClick(MouseEvent event) {
@@ -98,7 +99,6 @@ public class AddFactureController implements Initializable {
 
 		} else {
 			if (event.getSource() == createFacture) {
-				
 
 				clearAll();
 			} else {
@@ -107,15 +107,18 @@ public class AddFactureController implements Initializable {
 				} else {
 					if (event.getSource() == addArticle) {
 						// TODO test if Its not Taxable
-						if (qst.getValue() != 0 && Article.getText() != "") {
+						if (qst.getValue() != 0 && Article.getText() != ""
+								&& !checkIfAlreadyinTheTable(currentArticle.getEv())) {
 
 							System.out.println("Type ==+> " + Type);
-							if (Type == 1&&CIN==""&&ADDRESS=="") {
+							if (Type == 1 && CIN == "" && ADDRESS == "") {
 								Action("factureMoreData", "Plus D'information Nécessaire");
-							}else{
-								AddToTableFacture() ;
+							} else {
+								AddToTableFacture();
 							}
 
+						} else {
+							alert("Problem !!!", "Cette Article est Deja  ajouté au Facture");
 						}
 					} else {
 						if (event.getSource() == cancel) {
@@ -199,7 +202,7 @@ public class AddFactureController implements Initializable {
 			if (xmlFile.equals("factureMoreData")) {
 				A.setOnHidden(e -> {
 					// process input here...
-					AddToTableFacture() ;
+					AddToTableFacture();
 				});
 			}
 			A.show();
@@ -289,28 +292,62 @@ public class AddFactureController implements Initializable {
 		Type = -1;
 		CIN = "";
 		ADDRESS = "";
-		facture=new Facture() ;
+		facture = new Facture();
 	}
-	//After all the Tests This methode gonna add the desired Article to The Table
-	private void AddToTableFacture(){
-		fillTableFacture(
-				new TokenData(currentArticle.getEv(), qst.getValue() < stockQuantityColumn.getCellData(0)
-						? qst.getValue() : stockQuantityColumn.getCellData(0)));
+
+	// After all the Tests This methode gonna add the desired Article to The
+	// Table
+	private void AddToTableFacture() {
+		TokenData Tmp = new TokenData(currentArticle.getEv(), qst.getValue() < stockQuantityColumn.getCellData(0)
+				? qst.getValue() : stockQuantityColumn.getCellData(0), Stock);
+		fillTableFacture(Tmp);
 		facture.addArticle(currentArticle);
+		facture.addTokenData(Tmp);
 		facture.setAddress(ADDRESS);
 		facture.setCin(CIN);
 		facture.setDate_Facture(new Date());
+
+		// not Tested Yet
+		// currentArticle = null;
+	}
+
+	// check if the item You wanna add is already
+	private boolean checkIfAlreadyinTheTable(String EV) {
+		for (TokenData A : factureTable.getItems()) {
+			if (A.ev.equals(EV)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void alert(String title, String conetent) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle(title);
+		alert.setHeaderText(null);
+		alert.setContentText(conetent);
+		alert.showAndWait();
 	}
 
 	// This class serves one Purpose filling the table Facture
 	public class TokenData {
 		private String ev;
 		private int qte;
+		private String stock;
 
-		public TokenData(String ev, int qte) {
+		public TokenData(String ev, int qte, String stock) {
 			super();
 			this.ev = ev;
 			this.qte = qte;
+			this.stock = stock;
+		}
+
+		public String getStock() {
+			return stock;
+		}
+
+		public void setStock(String stock) {
+			this.stock = stock;
 		}
 
 		public String getEv() {

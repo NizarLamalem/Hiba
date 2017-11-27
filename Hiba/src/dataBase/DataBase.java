@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import dao.Article;
 import dao.Facture;
 import dao.StockQte;
+import interfaces.AddFactureController.TokenData;
 
 public class DataBase {
 	// The DataVase Connection
@@ -94,22 +95,9 @@ public class DataBase {
 		// Adding The Stocks to The ArrayList
 		rs = executeStatements(SQL);
 		while (rs.next()) {
-			String Stock = null;
-			switch (rs.getInt("ID")) {
-			case 1:
-				Stock = "M";
-				break;
-			case 2:
-				Stock = "D";
-				break;
-			case 3:
-				Stock = "P";
-				break;
-			case 4:
-				Stock = "EX";
-				break;
-			}
-			articlStq.add(new StockQte(Stock, rs.getString("EV"), rs.getInt("Qte"), rs.getInt("ID")));
+
+			articlStq.add(new StockQte(mappingReverseStock(rs.getInt("ID")), rs.getString("EV"), rs.getInt("Qte"),
+					rs.getInt("ID")));
 
 		}
 		cleanVariables();
@@ -121,6 +109,12 @@ public class DataBase {
 	private ResultSet executeStatements(String sql) throws Exception {
 		stmt = con.createStatement();
 		return stmt.executeQuery(sql);
+	}
+
+	// The Executing Query Task is a repetitive code
+	private int executeUpdateStatements(String sql) throws Exception {
+		stmt = con.createStatement();
+		return stmt.executeUpdate(sql);
 	}
 
 	// Cleaning The Variables in case of a future Bugs or something
@@ -135,13 +129,61 @@ public class DataBase {
 	}
 
 	public void addFacture(Facture facture) throws Exception {
-	//Here we add Facture its The Algo whats Missing
-		double priceTTc=0;
-		double priceHT=0;
-		for(Article A :facture.getArticleList()){
+		// Here we add Facture its The Algo whats Missing
+		double priceTTc = 0;
+		double priceHT = 0;
+		for (Article A : facture.getArticleList()) {
 		}
 		SQL = "INSERT INTO `facture`( `IDS`, `Date_Facture`, `PriceHT`, `PriceTTC`, `CIN`, `Address`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7])";
 
+		// Updating The Stock_Qte Table
+		SQL = "";
+		for (TokenData data : facture.getTokenData()) {
+
+			SQL = "UPDATE `stock-qte` SET `Qte`=`Qte`- " + data.getQte() + " WHERE `ID`="
+					+ mappingStock(data.getStock()) + " and `EV` = '" + data.getEv() + "'";
+			executeUpdateStatements(SQL);
+		}
+
 		cleanVariables();
 	}
+
+	private int mappingStock(String stock) {
+		int Stock = 0;
+		switch (stock) {
+		case "M":
+			Stock = 1;
+			break;
+		case "D":
+			Stock = 2;
+			break;
+		case "P":
+			Stock = 3;
+			break;
+		case "EX":
+			Stock = 4;
+			break;
+		}
+		return Stock;
+	}
+
+	private String mappingReverseStock(int stock) {
+		String Stock = null;
+		switch (stock) {
+		case 1:
+			Stock = "M";
+			break;
+		case 2:
+			Stock = "D";
+			break;
+		case 3:
+			Stock = "P";
+			break;
+		case 4:
+			Stock = "EX";
+			break;
+		}
+		return Stock;
+	}
+
 }
