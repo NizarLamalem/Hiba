@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.plaf.synth.SynthSplitPaneUI;
+
 import dao.Article;
 import dao.Facture;
 import dao.StockQte;
@@ -79,7 +81,7 @@ public class DataBase {
 		// Adding The factures to The ArrayList
 		rs = executeStatements(SQL);
 		while (rs.next()) {
-			Factures.add(new Facture(rs.getInt("IDS"), rs.getInt("IDF"), rs.getDate("Date_Facture"),
+			Factures.add(new Facture(rs.getInt("IDS"), rs.getInt("IDF"), rs.getDate("Date_Facture").toString(),
 					rs.getDouble("PriceHT"), rs.getDouble("PriceTTC"), rs.getString("CIN"), rs.getString("Address")));
 		}
 		cleanVariables();
@@ -117,6 +119,11 @@ public class DataBase {
 		return stmt.executeUpdate(sql);
 	}
 
+	/*
+	 * private int executeInsertStatements(String sql) throws Exception { stmt =
+	 * con.createStatement(); return stmt.executeUpdate(sql); }
+	 */
+
 	// Cleaning The Variables in case of a future Bugs or something
 	private void cleanVariables() throws Exception {
 		rs.close();
@@ -133,22 +140,41 @@ public class DataBase {
 		double priceTTc = 0;
 		double priceHT = 0;
 		for (Article A : facture.getArticleList()) {
+			priceHT += A.getHt();
+			priceTTc += A.getHt() * (1 + (priceHT / 100));
 		}
-		SQL = "INSERT INTO `facture`( `IDS`, `Date_Facture`, `PriceHT`, `PriceTTC`, `CIN`, `Address`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7])";
+		System.out.println(facture.getDate_Facture());
+		SQL = "INSERT INTO `facture`( `IDS`, `Date_Facture`, `PriceHT`, `PriceTTC`, `CIN`, `Address`) VALUES ('"
+				+ facture.getIds() + "','" + facture.getDate_Facture() + "'," + priceHT + "," + priceTTc + ",'"
+				+ facture.getCin() + "','" + facture.getAddress() + "') ";
+		executeUpdateStatements(SQL);
 
-		// Updating The Stock_Qte Table
+		// Updating The Stock_Qte and The Commande Tables
+		System.out.println("getting the Last inserted Id");
+		rs = executeStatements("select last_insert_id() as last_id from facture");
+		String lastID = "";
+		if (rs.next()) {
+			lastID = rs.getString("last_id");
+		}
+
 		SQL = "";
 		for (TokenData data : facture.getTokenData()) {
-
+			SQL = "";
 			SQL = "UPDATE `stock-qte` SET `Qte`=`Qte`- " + data.getQte() + " WHERE `ID`="
 					+ mappingStock(data.getStock()) + " and `EV` = '" + data.getEv() + "'";
 			executeUpdateStatements(SQL);
-		}
+			SQL = "";
+			SQL = "INSERT INTO `commande`(`IDF`, `EV`, `QTE`) VALUES (" + lastID + ",'" + data.getEv() + "',"
+					+ data.getQte() + ")";
+			System.out.println(SQL);
+			executeUpdateStatements(SQL);
 
+		}
 		cleanVariables();
 	}
 
-	private int mappingStock(String stock) {
+	public static int mappingStock(String stock) {
+
 		int Stock = 0;
 		switch (stock) {
 		case "M":
@@ -167,7 +193,7 @@ public class DataBase {
 		return Stock;
 	}
 
-	private String mappingReverseStock(int stock) {
+	public static String mappingReverseStock(int stock) {
 		String Stock = null;
 		switch (stock) {
 		case 1:

@@ -49,7 +49,7 @@ public class FactureMoreDataController implements Initializable {
 		if (!wrong) {
 			// TODO Do Treatment
 			AddFactureController.ADDRESS = address.getText();
-			AddFactureController.CIN = address.getText();
+			AddFactureController.CIN = cin.getText();
 			((Stage) Ajoute.getScene().getWindow()).close();
 		}
 	}

@@ -10,7 +10,7 @@ public class Facture {
 
 	private int ids;
 	private int idf;
-	private Date date_Facture;
+	private String date_Facture;
 	private double priceHT;
 	private double priceTTC;
 	private String cin;
@@ -19,7 +19,7 @@ public class Facture {
 	private LinkedList<Article> articleList;
 	private LinkedList<AddFactureController.TokenData> tokenList;
 
-	public Facture(int ids, int idf, Date date_Facture, double priceHT, double priceTTC, String cin, String address) {
+	public Facture(int ids, int idf, String date_Facture, double priceHT, double priceTTC, String cin, String address) {
 		super();
 		this.ids = ids;
 		this.idf = idf;
@@ -39,6 +39,7 @@ public class Facture {
 		this.address = "";
 		this.priceHT = 0;
 		this.priceTTC = 0;
+		this.ids = -1;
 	}
 
 	public int getIds() {
@@ -57,11 +58,11 @@ public class Facture {
 		this.idf = idf;
 	}
 
-	public Date getDate_Facture() {
+	public String getDate_Facture() {
 		return date_Facture;
 	}
 
-	public void setDate_Facture(Date date_Facture) {
+	public void setDate_Facture(String date_Facture) {
 		this.date_Facture = date_Facture;
 	}
 

@@ -2,6 +2,8 @@ package interfaces;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,6 +20,7 @@ import application.Main;
 import dao.Article;
 import dao.Facture;
 import dao.StockQte;
+import dataBase.DataBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -93,14 +96,19 @@ public class AddFactureController implements Initializable {
 	public static String ADDRESS = "";
 
 	@FXML
-	void onClick(MouseEvent event) {
+	void onClick(MouseEvent event) throws Exception {
 		if (event.getSource() == detaills) {
 			Action("AddFactureDetails", "Plus d'information");
 
 		} else {
 			if (event.getSource() == createFacture) {
-
-				clearAll();
+				if (facture.getIds() != -1) {
+					Main.database.addFacture(facture);
+					clearAll();
+				} else {
+					alert("Creation Imossible",
+							"Facture Peut Pas Etre Créé \n assurez vous que vous avez que tous ce que f");
+				}
 			} else {
 				if (event.getSource() == seeFacture) {
 
@@ -301,11 +309,14 @@ public class AddFactureController implements Initializable {
 		TokenData Tmp = new TokenData(currentArticle.getEv(), qst.getValue() < stockQuantityColumn.getCellData(0)
 				? qst.getValue() : stockQuantityColumn.getCellData(0), Stock);
 		fillTableFacture(Tmp);
+		facture.setIds(DataBase.mappingStock(Stock));
 		facture.addArticle(currentArticle);
 		facture.addTokenData(Tmp);
 		facture.setAddress(ADDRESS);
 		facture.setCin(CIN);
-		facture.setDate_Facture(new Date());
+		Date A = new Date();
+		DateFormat simpleDate = new SimpleDateFormat("yyyy/MM/dd");
+		facture.setDate_Facture(simpleDate.format(A));
 
 		// not Tested Yet
 		// currentArticle = null;
