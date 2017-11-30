@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
+import org.apache.log4j.BasicConfigurator;
 import org.controlsfx.control.textfield.TextFields;
 import org.omg.PortableServer.ServantRetentionPolicyValue;
 
@@ -92,6 +93,7 @@ public class AddFactureController implements Initializable {
 	private String Stock = "";
 
 	public static Article currentArticle;
+	public static String currentArticleStock = "";
 	public static String CIN = "";
 	public static String ADDRESS = "";
 
@@ -107,10 +109,12 @@ public class AddFactureController implements Initializable {
 					clearAll();
 				} else {
 					alert("Creation Imossible",
-							"Facture Peut Pas Etre Créé \n assurez vous que vous avez que tous ce que f");
+							"Facture Peut Pas Etre Créé. \nAssurez vous que vous avez que tous ce que fait");
 				}
 			} else {
 				if (event.getSource() == seeFacture) {
+					Main.database.showInvoice(facture.getIds(), facture.getCin(),
+							DataBase.mappingReverseStock(facture.getIds()), facture.getAddress());
 
 				} else {
 					if (event.getSource() == addArticle) {
@@ -119,10 +123,14 @@ public class AddFactureController implements Initializable {
 								&& !checkIfAlreadyinTheTable(currentArticle.getEv())) {
 
 							System.out.println("Type ==+> " + Type);
-							if (Type == 1 && CIN == "" && ADDRESS == "") {
-								Action("factureMoreData", "Plus D'information Nécessaire");
+							if (currentArticle.getType() == Type && Stock.equals(currentArticleStock)) {
+								if (Type == 1 && CIN == "" && ADDRESS == "") {
+									Action("factureMoreData", "Plus D'information Nécessaire");
+								} else {
+									AddToTableFacture();
+								}
 							} else {
-								AddToTableFacture();
+								alert("Problem !!!", "Le Stock ou le type D'article et different de l'autre articles");
 							}
 
 						} else {
@@ -157,7 +165,7 @@ public class AddFactureController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		BasicConfigurator.configure();
 		facture = new Facture();
 		// When ever We are Using Articles Or Factures We Gonna check
 		// if we alredy have the data stores in our App
@@ -252,23 +260,30 @@ public class AddFactureController implements Initializable {
 		ArrayList<StockQte> listFinal = new ArrayList<StockQte>();
 
 		// Save The Stock Type For FuTure Use
-		Stock = stockQt.get(0).getStock();
-		Type = currentArticle.getType();
+		if (Stock.equals("") && Type == -1) {
+			Stock = stockQt.get(0).getStock();
+			Type = currentArticle.getType();
+		}
+		currentArticleStock = stockQt.get(0).getStock();
 		// for collecting and add all The quantities togather
 		int size = 0;
+
 		for (int i = 0; i < stockQt.size(); i++) {
-			listFinal.add(stockQt.get(i));
-			size += stockQt.get(i).getQte();
-			// System.out.println(stockQt.get(i));
-			if (stockQt.get(i).getQte() >= qst.getValue()) {
+			if (stockQt.get(i).getQte() > 0) {
+				listFinal.add(stockQt.get(i));
+				size += stockQt.get(i).getQte();
 				// System.out.println(stockQt.get(i));
-				// System.out.println("The Spinner Value =+>" + qst.getValue());
-				return listFinal;
-			}
-			// when The Size of the Article in the mentioned ataBase after
-			// adding them together become more then the qte mentioned
-			if (size >= qst.getValue()) {
-				return listFinal;
+				if (stockQt.get(i).getQte() >= qst.getValue()) {
+					// System.out.println(stockQt.get(i));
+					// System.out.println("The Spinner Value =+>" +
+					// qst.getValue());
+					return listFinal;
+				}
+				// when The Size of the Article in the mentioned ataBase after
+				// adding them together become more then the qte mentioned
+				if (size >= qst.getValue()) {
+					return listFinal;
+				}
 			}
 
 		}
@@ -300,6 +315,7 @@ public class AddFactureController implements Initializable {
 		Type = -1;
 		CIN = "";
 		ADDRESS = "";
+		currentArticleStock = "";
 		facture = new Facture();
 	}
 

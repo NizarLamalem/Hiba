@@ -19,6 +19,6 @@
             <TableColumn fx:id="columnTVA" prefWidth="64.7999267578125" text="TVA" />
         </columns>
       </TableView>
-      <TextField fx:id="chercherArticle" layoutX="14.0" layoutY="45.0" prefHeight="26.0" prefWidth="648.0" promptText="Chercher Un Article" />
+      <TextField fx:id="chercherArticle" layoutX="14.0" layoutY="45.0" onInputMethodTextChanged="#searchEV" onKeyReleased="#searchEV" prefHeight="26.0" prefWidth="648.0" promptText="Chercher Un Article Par Son EV" />
    </children>
 </AnchorPane>

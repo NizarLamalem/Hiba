@@ -46,7 +46,7 @@ public class AddFactureDetailsController implements Initializable {
 		if (AddFactureController.currentArticle != null) {
 			designation.setText(AddFactureController.currentArticle.getDesignation());
 			EV.setText(AddFactureController.currentArticle.getEv());
-			type.setText(""+AddFactureController.currentArticle.getType());
+			type.setText(AddFactureController.currentArticle.getType()==0 ? "Hors Tax" : "Exonéré");
 			prixNette.setText(""+AddFactureController.currentArticle.getPrixNette());
 			tva.setText(""+AddFactureController.currentArticle.getTva());
 			prixTarif.setText(""+AddFactureController.currentArticle.getPrixTarif());

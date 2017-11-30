@@ -1,18 +1,22 @@
 package interfaces;
 
+
 import dataBase.*;
 import dao.Article;
 import application.Main;
 import java.net.URL;
+
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
+import dao.Article;
 import org.controlsfx.control.textfield.TextFields;
 
-import application.Main;
-import dao.Article;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -20,9 +24,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-
 public class SearchProductsController implements Initializable{
 
+    @FXML
+    private TextField chercherArticle;
+    
     @FXML
     private TableView<Article> tableProducts;
 
@@ -49,14 +55,10 @@ public class SearchProductsController implements Initializable{
 
     @FXML
     private TableColumn<?, ?> columnTVA;
-    
-    @FXML
-    private TextField chercherArticle;
-    
-	private ObservableList<Article> data;
-    //private ResultSet rs = null;
-    //private PreparedStatement pst = null;
-    //private Connection conn = null;
+        
+	private ObservableList<Article> data = FXCollections.observableArrayList();
+	FilteredList<Article> filteredData = new FilteredList<>(data, e->true);
+	DataBase database;
     
     private void setCellTable() {
     	columnEV.setCellValueFactory(new PropertyValueFactory<>("ev"));
@@ -69,46 +71,38 @@ public class SearchProductsController implements Initializable{
     	columnTVA.setCellValueFactory(new PropertyValueFactory<>("tva"));
     }
     
-    private void loadProducts() throws Exception {
-    	data.addAll(FXCollections.observableArrayList(Main.database.getArticles("-1")));
-    	//try {
-    		//pst = conn.prepareStatement("SELECT * FROM article");
-    		//rs = pst.executeQuery();
-    		//while(rs.next()) {
-    		//	data.add(new Article(rs.getString(1), rs.getInt(4), rs.getDouble(5), rs.getDouble(6), rs.getDouble(7), rs.getDouble(8), rs.getString(3), rs.getString(2)));
-    		//}
-    	//}catch(SQLException ex) {
-            //ex.printStackTrace();
-    	//}
-    	tableProducts.setItems(data);
-    }
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		setCellTable();
-    	try {
-			loadProducts();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-    	if(Main.Articles ==null){
-			try {
-				Main.Articles=Main.database.getArticles("-1") ;
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		//Getting All The EV From
-		LinkedList<String> Tmp  =new LinkedList<String>() ;
-		for(Article A:Main.Articles){
-			Tmp.add(A.getEv()) ;
-		}
-		// TODO Auto-generated method stub
-		TextFields.bindAutoCompletion(chercherArticle,Tmp) ;
+	private void loadProducts() throws Exception{
+		data.addAll(database.getArticles("-1"));
+		tableProducts.setItems(data);
 	}
-    
 
+    public void searchEV() {
+    	chercherArticle.textProperty().addListener((ObservableValue,oldValue,newValue)->{
+    		filteredData.setPredicate((Predicate<? super Article>)article->{
+    			if(newValue==null || newValue.isEmpty()) {
+    				return true;
+    			}
+    			String lowerCaseFilter = newValue.toLowerCase();
+    			if(article.getEv().toLowerCase().contains(lowerCaseFilter)) {
+    				return true;
+    			}
+    			return false;
+    		});
+    	});
+    	SortedList<Article> sortedData = new SortedList<>(filteredData);
+    	sortedData.comparatorProperty().bind(tableProducts.comparatorProperty());
+    	tableProducts.setItems(sortedData);
+    }
+    
+    @Override
+	public void initialize(URL url, ResourceBundle rb) {
+		try {
+			database = new DataBase();
+			setCellTable();
+			loadProducts();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    } 
 }

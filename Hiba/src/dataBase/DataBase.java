@@ -1,17 +1,33 @@
 package dataBase;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 import javax.swing.plaf.synth.SynthSplitPaneUI;
 
+import application.Main;
 import dao.Article;
 import dao.Facture;
+import dao.ProductsInvoice;
 import dao.StockQte;
 import interfaces.AddFactureController.TokenData;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class DataBase {
 	// The DataVase Connection
@@ -141,7 +157,7 @@ public class DataBase {
 		double priceHT = 0;
 		for (Article A : facture.getArticleList()) {
 			priceHT += A.getHt();
-			priceTTc += A.getHt() * (1 + (priceHT / 100));
+			priceTTc += A.getHt() * (1 + (A.getHt() / 100));
 		}
 		System.out.println(facture.getDate_Facture());
 		SQL = "INSERT INTO `facture`( `IDS`, `Date_Facture`, `PriceHT`, `PriceTTC`, `CIN`, `Address`) VALUES ('"
@@ -152,9 +168,9 @@ public class DataBase {
 		// Updating The Stock_Qte and The Commande Tables
 		System.out.println("getting the Last inserted Id");
 		rs = executeStatements("select last_insert_id() as last_id from facture");
-		String lastID = "";
+		int lastID = 0;
 		if (rs.next()) {
-			lastID = rs.getString("last_id");
+			lastID = rs.getInt("last_id");
 		}
 
 		SQL = "";
@@ -170,6 +186,8 @@ public class DataBase {
 			executeUpdateStatements(SQL);
 
 		}
+		Main.database.productsInvoice(lastID, facture.getCin(), DataBase.mappingReverseStock(facture.getIds()),
+				facture.getAddress());
 		cleanVariables();
 	}
 
@@ -212,4 +230,69 @@ public class DataBase {
 		return Stock;
 	}
 
+	public ArrayList<ProductsInvoice> invoiceProductsList(int id) throws Exception {
+		ArrayList<ProductsInvoice> invoiceProducts = new ArrayList<>();
+
+		SQL = "SELECT Ref,Desig,QTE,PrixTarif,PrixNette,PriceHT,PriceTTC" + " FROM facture f,commande c,article a"
+				+ " WHERE  f.IDF = '" + id + "' AND f.IDF=c.IDF AND c.EV=a.Ev ";
+		// Adding The invoiceProducts to The LinkedList
+		rs = executeStatements(SQL);
+		while (rs.next()) {
+			invoiceProducts.add(new ProductsInvoice(rs.getString("a.Ref"), rs.getString("a.Desig"),
+					rs.getString("c.QTE"), rs.getString("a.PrixTarif"), rs.getString("a.PrixNette"),
+					rs.getString("f.PriceHT"), rs.getString("f.PriceTTC")));
+		}
+		cleanVariables();
+		// Check If The invoiceProducts Are Empty
+		return invoiceProducts;
+	}
+
+	public void productsInvoice(int idFacture, String CIN, String stock, String adr) throws Exception {
+		String sourceFile = "C:\\Users\\Nizar\\git\\Hiba\\Hiba\\src\\pdf\\Facture.jrxml";
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+		Date date = new Date();
+		String pdfFile = dateFormat.format(date).toString();
+		String destination = "C:\\Users\\Nizar\\Desktop\\Facture\\" + pdfFile + ".pdf";
+		try {
+			JasperReport jr = JasperCompileManager.compileReport(sourceFile);
+			HashMap<String, Object> para = new HashMap<>();
+			para.put("CIN", CIN); // put CIN Value
+			para.put("Stock", stock); // put Stock Value
+			para.put("Address", adr); // put Address Value
+
+			ArrayList<ProductsInvoice> plist = new ArrayList<>();
+			plist.addAll(this.invoiceProductsList(idFacture));
+			JRBeanCollectionDataSource jcs = new JRBeanCollectionDataSource(plist);
+			JasperPrint jp = JasperFillManager.fillReport(jr, para, jcs);
+
+			// Create PDF format file
+			JasperExportManager.exportReportToPdfFile(jp, destination);
+			Desktop.getDesktop().open(new File(destination));
+			// JasperViewer.viewReport(jp);
+		} catch (JRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void showInvoice(int idFacture, String CIN, String stock, String adr) throws Exception {
+		String sourceFile = "C:\\Users\\Nizar\\git\\Hiba\\Hiba\\src\\pdf\\Facture.jrxml";
+		try {
+			JasperReport jr = JasperCompileManager.compileReport(sourceFile);
+			HashMap<String, Object> para = new HashMap<>();
+			para.put("CIN", CIN); // put CIN Value
+			para.put("Stock", stock); // put Stock Value
+			para.put("Address", adr); // put Address Value
+			//
+			ArrayList<ProductsInvoice> plist = new ArrayList<>();
+			plist.addAll(this.invoiceProductsList(idFacture));
+			JRBeanCollectionDataSource jcs = new JRBeanCollectionDataSource(plist);
+			JasperPrint jp = JasperFillManager.fillReport(jr, para, jcs);
+
+			JasperViewer.viewReport(jp);
+		} catch (JRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
