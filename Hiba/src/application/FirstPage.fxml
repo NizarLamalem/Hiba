@@ -4,8 +4,6 @@
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -20,14 +18,7 @@
             <Font size="32.0" />
          </font>
       </Label>
-      <AnchorPane fx:id="rootP" layoutX="35.0" layoutY="90.0" maxHeight="510.0" maxWidth="674.0" minHeight="510.0" minWidth="674.0" prefHeight="510.0" prefWidth="674.0">
-         <children>
-            <ImageView fitHeight="220.0" fitWidth="289.0" layoutX="218.0" layoutY="11.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../Resources/Logo.png" />
-               </image>
-            </ImageView>
-         </children></AnchorPane>
+      <AnchorPane fx:id="rootP" layoutX="35.0" layoutY="90.0" maxHeight="510.0" maxWidth="674.0" minHeight="510.0" minWidth="674.0" prefHeight="510.0" prefWidth="674.0" />
       <JFXDrawer fx:id="drawer" defaultDrawerSize="1000.0" layoutX="-1.0" overLayVisible="false" prefHeight="614.0" prefWidth="252.0" />
    </children>
 </AnchorPane>
