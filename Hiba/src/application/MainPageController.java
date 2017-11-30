@@ -58,7 +58,7 @@ public class MainPageController implements Initializable {
 		hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
 			transition.setRate(transition.getRate() * -1);
 			transition.play();
-
+			
 			if (drawer.isShown()) {
 				drawer.close();
 				rootP.toFront();

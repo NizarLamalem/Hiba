@@ -9,7 +9,7 @@
 
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainPageController">
    <children>
-      <JFXHamburger fx:id="hamburger" layoutX="700.0" layoutY="14.0">
+      <JFXHamburger fx:id="hamburger" layoutX="700.0" layoutY="14.0" styleClass="jfx-hamburger-icon" stylesheets="@application.css">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></JFXHamburger>

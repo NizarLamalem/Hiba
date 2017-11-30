@@ -30,7 +30,7 @@ public class DrawerController {
 		String Destination = "Null";
 		Object Tmp = event.getSource();
 		
-		MainPageController.transition.setRate(MainPageController.transition.getRate() * -1);
+		MainPageController.transition.setRate(-1);
 		MainPageController.transition.play();
 		
 		if (Tmp == nouvelleFacture) {
