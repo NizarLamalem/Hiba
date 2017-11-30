@@ -30,7 +30,7 @@
 -fx-text-fill: white ;
 }
 #title{
-	-fx-color: #1E88E5;
+	-fx-text-fill: #1E88E5;
 	-fx-font-weight: bold;
 	-fx-alignment: center-left ; 
 	-fx-font-size: 32.0pt;
