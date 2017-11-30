@@ -31,6 +31,8 @@ public class DrawerController {
 		Object Tmp = event.getSource();
 		
 		MainPageController.transition.setRate(-1);
+		MainPageController.transition.setRate(-1);
+		MainPageController.transition.play();
 		MainPageController.transition.play();
 		
 		if (Tmp == nouvelleFacture) {
@@ -54,6 +56,7 @@ public class DrawerController {
 			}
 		}
 		
+
 		MainPageController.Drawer.close();
 		MainPageController.RootP.toFront();
 		if (Destination != null && MainPageController.RootP != null) {
@@ -62,6 +65,7 @@ public class DrawerController {
 			Destination = "null";
 			
 		}
+
 
 	}
 
