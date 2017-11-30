@@ -19,6 +19,7 @@ import dao.Article;
 import dao.Facture;
 import dao.ProductsInvoice;
 import dao.StockQte;
+import interfaces.AddFactureController;
 import interfaces.AddFactureController.TokenData;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -156,8 +157,9 @@ public class DataBase {
 		double priceTTc = 0;
 		double priceHT = 0;
 		for (Article A : facture.getArticleList()) {
-			priceHT += A.getHt();
-			priceTTc += A.getHt() * (1 + (A.getHt() / 100));
+			double TmpHt = (A.getHt() * getQte(A.getEv()));
+			priceHT += TmpHt;
+			priceTTc += TmpHt * (1 + (A.getTva() / 100));
 		}
 		System.out.println(facture.getDate_Facture());
 		SQL = "INSERT INTO `facture`( `IDS`, `Date_Facture`, `PriceHT`, `PriceTTC`, `CIN`, `Address`) VALUES ('"
@@ -294,5 +296,15 @@ public class DataBase {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private int getQte(String Ev) {
+		int qte = 0;
+		for (TokenData A : AddFactureController.facture.getTokenData()) {
+			if (A.getEv().equals(Ev)) {
+				qte = A.getQte();
+			}
+		}
+		return qte;
 	}
 }
