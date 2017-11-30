@@ -2,12 +2,16 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="252.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DrawerController">
    <children>
-      <ImageView fx:id="back" fitHeight="150.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="back" fitHeight="150.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@back.jpg" />
+         </image></ImageView>
       <JFXButton fx:id="nouvelleFacture" buttonType="RAISED" onMouseClicked="#onClick" prefHeight="50.0" prefWidth="257.0" ripplerFill="#1e88e5" styleClass="DrawerButtons" stylesheets="@application.css" text="Nouvelle Facture" textOverrun="CLIP">
          <cursor>
             <Cursor fx:constant="HAND" />

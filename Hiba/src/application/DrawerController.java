@@ -15,7 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class DrawerController implements Initializable {
+public class DrawerController {
 
 	@FXML
 	private JFXButton nouvelleFacture;
@@ -75,10 +75,5 @@ public class DrawerController implements Initializable {
 
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		back.setImage(new Image("/Resources/back.jpg"));
-	}
 
 }
