@@ -35,24 +35,25 @@ public class MainPageController implements Initializable {
 	private Label title;
 	@FXML
 	private AnchorPane rootP;
-	
+
 	public static AnchorPane RootP;
-	public static JFXDrawer Drawer ;
+	public static JFXDrawer Drawer;
+	public static HamburgerBackArrowBasicTransition transition;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		//To Make The Buttons 
+		// To Make The Buttons
 		rootP.toFront();
 		try {
 			RootP = rootP;
-			Drawer=drawer ;
+			Drawer = drawer;
 			VBox box = FXMLLoader.load(getClass().getResource("Drawer.fxml"));
 			drawer.setSidePane(box);
 		} catch (IOException ex) {
 			Logger.getLogger(MainPageController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
-		HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+		transition = new HamburgerBackArrowBasicTransition(hamburger);
 		transition.setRate(-1);
 		hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
 			transition.setRate(transition.getRate() * -1);
@@ -61,11 +62,12 @@ public class MainPageController implements Initializable {
 			if (drawer.isShown()) {
 				drawer.close();
 				rootP.toFront();
-			} else{
-				drawer.toFront();;
-				drawer.open();}
+			} else {
+				drawer.toFront();
+				;
+				drawer.open();
+			}
 		});
 	}
 
 }
-

@@ -29,6 +29,10 @@ public class DrawerController {
 
 		String Destination = "Null";
 		Object Tmp = event.getSource();
+		
+		MainPageController.transition.setRate(MainPageController.transition.getRate() * -1);
+		MainPageController.transition.play();
+		
 		if (Tmp == nouvelleFacture) {
 			// todo Tratment Nouvelle Facture ;
 			Destination = "AddFacture";
@@ -49,6 +53,7 @@ public class DrawerController {
 				}
 			}
 		}
+		
 		MainPageController.Drawer.close();
 		MainPageController.RootP.toFront();
 		if (Destination != null && MainPageController.RootP != null) {
@@ -56,7 +61,6 @@ public class DrawerController {
 					(AnchorPane) FXMLLoader.load(getClass().getResource("/interfaces/" + Destination + ".fxml")));
 			Destination = "null";
 			
-
 		}
 
 	}
