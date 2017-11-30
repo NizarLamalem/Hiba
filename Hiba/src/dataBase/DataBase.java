@@ -250,7 +250,8 @@ public class DataBase {
 	}
 
 	public void productsInvoice(int idFacture, String CIN, String stock, String adr) throws Exception {
-		String sourceFile = "C:\\Users\\Nizar\\git\\Hiba\\Hiba\\src\\pdf\\Facture.jrxml";
+		//String sourceFile = "C:\\Users\\Nizar\\git\\Hiba\\Hiba\\src\\pdf\\Facture.jrxml";
+		String sourceFile = "..\\pdf\\Facture.jrxml";
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 		Date date = new Date();
 		String pdfFile = dateFormat.format(date).toString();
