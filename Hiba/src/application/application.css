@@ -30,20 +30,21 @@
 -fx-text-fill: white ;
 }
 #title{
-	 		-fx-color: #c9d0d4;
-		 -fx-font-family: 'Helvetica Neue';
-		 -fx-font-size: 30px; 
-		 -fx-font-weight: bold;
-		 -fx-alignment: center-left ;
+	-fx-color: #c9d0d4;
+	-fx-font-weight: bold;
+	-fx-alignment: center-left ; 
+	-fx-font-size: 32.0pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-opacity: 1.0;
 }
 .hint{
-	-fx-opacity: 0;
+	-fx-opacity: 0.0;
 	-fx-text-fill: white ;
 	-fx-background-color: #CA2E2F ;
-	-fx-background-radius: 15 3 3 0;
-	-fx-border-radius: 15 3 3 0;
+	-fx-background-radius: 15.0 3.0 3.0 0.0;
+	-fx-border-radius: 15.0 3.0 3.0 0.0;
 	-fx-border-color: red ;
-	-fx-effect:dropshadow(gaussian, red, 8, 0, 0, 0);
+	-fx-effect:dropshadow(gaussian, red, 8.0, 0.0, 0.0, 0.0);
 }
 .input:disabled {
 -fx-opacity: 1.0;
