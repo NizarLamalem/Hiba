@@ -35,7 +35,7 @@
 	-fx-alignment: center-left ; 
 	-fx-font-size: 32.0pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-opacity: 1.0;
+    -fx-opacity: 0.0;
 }
 .hint{
 	-fx-opacity: 0.0;
